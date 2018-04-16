@@ -7,4 +7,11 @@ jobs:
       - checkout
       - run: dotnet restore src/
       - run: dotnet build src/
-      - run: dotnet test --no-build src/Seedwork.Test
+      - run: dotnet test --no-build --logger "trx;LogFileName=../../../xunit-output.xml" src/Seedwork.Test
+
+      # Convert xUnit output to JUnit output, as described at
+      # http://geeks.akinox.com/2017/03/17/migrating-dotnetcore/#dotnet-test-and-shippable
+      - run: xsltproc -o shippable/testresults/result.xml scripts/trx-to-junit.xslt xunit-output.xml && rm xunit-output.xml
+    
+      - store_test_results:
+          path: "shippable/testresults/"

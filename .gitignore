@@ -23,3 +23,7 @@ project.assets.json
 # Ignore built artifacts
 bin/
 obj/
+shippable/
+
+# Ignore test output and intermediates
+xunit-output.xml
