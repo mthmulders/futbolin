@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Process test results
           command: |
+            apt-get update
             apt-get -y install xsltproc
             xsltproc -o shippable/testresults/result.xml scripts/trx-to-junit.xslt xunit-output.xml
             rm xunit-output.xml
