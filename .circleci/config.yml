@@ -5,6 +5,6 @@ jobs:
       - image: microsoft/aspnetcore-build:2.0
     steps:
       - checkout
-      - run: dotnet restore
-      - run: dotnet build
-      - run: dotnet test --no-build Seedwork.Test
+      - run: dotnet restore src/
+      - run: dotnet build src/
+      - run: dotnet test --no-build src/Seedwork.Test
