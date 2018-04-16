@@ -5,9 +5,15 @@ jobs:
       - image: microsoft/aspnetcore-build:2.0
     steps:
       - checkout
-      - run: dotnet restore src/
-      - run: dotnet build src/
-      - run: dotnet test --no-build --logger "trx;LogFileName=../../../xunit-output.xml" src/Seedwork.Test
+      - run:
+          name: Restore solution
+          command: dotnet restore src/
+      - run:
+          name: Build solution
+          command: dotnet build src/
+      - run:
+          name: Run tests 
+          command: dotnet test --no-build --logger "trx;LogFileName=../../../xunit-output.xml" src/Seedwork.Test
 
       # Convert xUnit output to JUnit output, as described at
       # http://geeks.akinox.com/2017/03/17/migrating-dotnetcore/#dotnet-test-and-shippable
