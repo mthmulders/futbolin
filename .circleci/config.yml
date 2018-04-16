@@ -11,7 +11,12 @@ jobs:
 
       # Convert xUnit output to JUnit output, as described at
       # http://geeks.akinox.com/2017/03/17/migrating-dotnetcore/#dotnet-test-and-shippable
-      - run: xsltproc -o shippable/testresults/result.xml scripts/trx-to-junit.xslt xunit-output.xml && rm xunit-output.xml
+      - run:
+          name: Process test results
+          command: |
+            apt-get -y install xsltproc
+            xsltproc -o shippable/testresults/result.xml scripts/trx-to-junit.xslt xunit-output.xml
+            rm xunit-output.xml
     
       - store_test_results:
           path: "shippable/testresults/"
