@@ -1,29 +1,49 @@
 version: 2
-jobs:
+
+workflows:
+  version: 2
   build:
+    jobs:
+      - backend
+
+jobs:
+  backend:
     docker:
-      - image: microsoft/aspnetcore-build:2.0
+      - image: circleci/openjdk:11-jdk-sid
+
     steps:
       - checkout
-      - run:
-          name: Restore solution
-          command: dotnet restore src/
-      - run:
-          name: Build solution
-          command: dotnet build src/
-      - run:
-          name: Run tests 
-          command: dotnet test --no-build --logger "trx;LogFileName=../../../xunit-output.xml" src/Seedwork.Test
 
-      # Convert xUnit output to JUnit output, as described at
-      # http://geeks.akinox.com/2017/03/17/migrating-dotnetcore/#dotnet-test-and-shippable
+      - restore_cache:
+          key: futbolin-backend-{{ .Branch }}-{{ checksum "pom.xml" }}
+
       - run:
-          name: Process test results
+          name: Prepare build
+          command: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+            - ~/.sonar/cache
+          key: futbolin-backend-{{ .Branch }}-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Build software
           command: |
-            apt-get update
-            apt-get -y install xsltproc
-            xsltproc -o shippable/testresults/result.xml scripts/trx-to-junit.xslt xunit-output.xml
-            rm xunit-output.xml
+            mvn -f backend/pom.xml \
+              clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar \
+              -Dsonar.projectKey=mthmulders_futbolin \
+              -Dsonar.organization=mthmulders-github \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=$SONAR_LOGIN
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/junit/ \;
+            find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} ~/junit/ \;
+          when: always
     
       - store_test_results:
-          path: "shippable/testresults/"
+          path: ~/junit
