@@ -15,7 +15,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: futbolin-backend-{{ .Branch }}-{{ checksum "pom.xml" }}
+          key: futbolin-backend-{{ .Branch }}-{{ checksum "backend/pom.xml" }}
 
       - run:
           name: Prepare build
@@ -25,7 +25,7 @@ jobs:
           paths:
             - ~/.m2
             - ~/.sonar/cache
-          key: futbolin-backend-{{ .Branch }}-{{ checksum "pom.xml" }}
+          key: futbolin-backend-{{ .Branch }}-{{ checksum "backend/pom.xml" }}
 
       - run:
           name: Build software
