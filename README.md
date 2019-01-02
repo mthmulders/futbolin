@@ -1,4 +1,7 @@
 [![CircleCI](https://circleci.com/gh/mthmulders/futbolin.svg?style=svg)](https://circleci.com/gh/mthmulders/futbolin)
+[![SonarCloud quality gate](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=alert_status)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
+[![SonarCloud vulnerability count](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
+[![SonarCloud technical debt](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=sqale_index)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
 
 # Futbolín
 This is Futbolín, a table football competition system.
