@@ -19,7 +19,7 @@ jobs:
 
       - run:
           name: Prepare build
-          command: mvn dependency:go-offline
+          command: mvn -f backend/pom.xml dependency:go-offline
 
       - save_cache:
           paths:
