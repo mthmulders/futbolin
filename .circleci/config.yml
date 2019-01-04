@@ -54,6 +54,7 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker
 
       - run:
           name: Installing Azure CLI
@@ -66,7 +67,22 @@ jobs:
             sudo apt-get install azure-cli
       - run:
           name: Login to Azure Container Registry
-          command: az login --service-principal -u $AZ_SP_URL -p $AZ_SP_PASSWORD --tenant $AZ_SP_TENANT
+          command: |
+            mkdir -p ~/.azure
+            cat << EOF > ~/.azure/config
+            [core]
+            output = table
+            collect_telemetry = no
+
+            [logging]
+            enable_log_file = no
+
+            [defaults]
+            location = westeurope
+            EOF
+
+            az login --service-principal -u $AZ_SP_URL -p $AZ_SP_PASSWORD --tenant $AZ_SP_TENANT --allow-no-subscriptions
+            az acr login --name FutbolinRegistry
 
       - run:
           name: Build container
