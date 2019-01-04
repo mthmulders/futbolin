@@ -65,4 +65,4 @@ jobs:
           name: Build container
           command: |
             pushd web
-            ./build-container.sh
+            ./build-container.sh $CIRCLE_BUILD_NUM
