@@ -57,32 +57,9 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Installing Azure CLI
-          command: |
-            echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ stretch main" | \
-                sudo tee /etc/apt/sources.list.d/azure-cli.list
-            curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-            sudo apt-get install apt-transport-https
-            sudo apt-get update
-            sudo apt-get install azure-cli
-      - run:
           name: Login to Azure Container Registry
           command: |
-            mkdir -p ~/.azure
-            cat << EOF > ~/.azure/config
-            [core]
-            output = table
-            collect_telemetry = no
-
-            [logging]
-            enable_log_file = no
-
-            [defaults]
-            location = westeurope
-            EOF
-
-            az login --service-principal -u $AZ_SP_URL -p $AZ_SP_PASSWORD --tenant $AZ_SP_TENANT --allow-no-subscriptions
-            az acr login --name FutbolinRegistry
+            docker login futbolinregistry.azurecr.io -u $AZ_SP_ID -p $AZ_SP_PASSWORD
 
       - run:
           name: Build container
