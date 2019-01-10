@@ -118,6 +118,11 @@ az aks get-credentials \
     --name ...
 ```
 
+If you also work with Futbolin on your own machine, you need a local Kubernetes cluster (e.g. using [Minikube](https://kubernetes.io/docs/setup/minikube/)).
+To interact with that, you also use `kubectl`.
+To switch between a remotely running Kubernetes cluster and locally running one, you can define _contexts_.
+Using `kubectl config use-context <name-of-context>` to determine which cluster you are interacting with.
+
 ### Using the Kubernetes Web UI Dashboard
 
 ```bash
