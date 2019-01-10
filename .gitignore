@@ -1,6 +1,7 @@
 .idea/
 target/
 *.iml
+deployment/traefik-web-ui.yml
 infra.sh
 infra/env.sh
 infra/*terraform*

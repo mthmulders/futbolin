@@ -1,0 +1,59 @@
+---
+
+# Deploy one replica of the web frontend.
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: futbolin-front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: futbolin-front
+  template:
+    metadata:
+      labels:
+        app: futbolin-front
+    spec:
+      containers:
+        - name: futbolin-front
+          image: futbolin.azurecr.io/demo-page:35
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: acr-auth
+
+---
+
+# Deploy a load balancer for the web frontend.
+apiVersion: v1
+kind: Service
+metadata:
+  name: futbolin-front
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: http
+  selector:
+    app: futbolin-front
+
+---
+
+# Deploy an Ingress to route everything to the frontend
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: futbolin
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+    - host: futbolin.minikube
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: futbolin-front
+              servicePort: http
