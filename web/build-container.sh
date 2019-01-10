@@ -8,5 +8,5 @@ if [[ "$#" -ne 1 ]]; then
     exit
 fi
 
-docker build -f Dockerfile -t futbolinregistry.azurecr.io/demo-page:$1 .
-docker push futbolinregistry.azurecr.io/demo-page:$1
+docker build -f Dockerfile -t futbolin.azurecr.io/demo-page:$1 .
+docker push futbolin.azurecr.io/demo-page:$1
