@@ -1,3 +1,6 @@
 .idea/
 target/
 *.iml
+infra.sh
+infra/env.sh
+infra/.terraform*
