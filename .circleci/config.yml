@@ -81,8 +81,7 @@ jobs:
           command: |
             pushd deployment
             PUBLIC_HOSTNAME=$(az aks show -g futbolin -n futbolin -o tsv | cut -f 6)
-            cat *.yml | sed s/futbolin.minikube/$PUBLIC_HOSTNAME/ | kubectl create -f -
-            kubectl apply -f .
+            cat *.yml | sed s/futbolin.minikube/$PUBLIC_HOSTNAME/ | kubectl apply -f -
   web:
     docker:
       - image: circleci/node:10.15.0-stretch
