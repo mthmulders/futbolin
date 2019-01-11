@@ -123,6 +123,8 @@ To interact with that, you also use `kubectl`.
 To switch between a remotely running Kubernetes cluster and locally running one, you can define _contexts_.
 Using `kubectl config use-context <name-of-context>` to determine which cluster you are interacting with.
 
+To make live easier, issue `source <(kubectl completion zsh)` (for ZSH) or `source <(kubectl completion bash)` (for Bash).
+
 ### Using the Kubernetes Web UI Dashboard
 
 ```bash
