@@ -6,13 +6,6 @@ workflows:
     jobs:
       - backend
       - web
-      - deploy:
-          filters:
-            branches:
-              only: master
-          requires:
-            - backend
-            - web
 
 jobs:
   backend:
@@ -48,41 +41,6 @@ jobs:
           when: always
       - store_test_results:
           path: ~/junit
-  deploy:
-    docker:
-      - image: microsoft/azure-cli:2.0.54
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Prepare AKS connection
-          command: |
-            az login \
-              --service-principal \
-              -u $AZ_SP_ID \
-              -p $AZ_SP_PASSWORD \
-              --tenant $AZ_SP_TENANT \
-              > /dev/null
-            az aks install-cli
-            az aks get-credentials \
-              --resource-group $AZ_RESOURCE_GROUP \
-              --name $AZ_AKS_NAME
-      - run:
-          name: Login to Azure Container Registry
-          command: |
-            kubectl delete secret acr-auth || true
-            kubectl create secret docker-registry acr-auth \
-              --docker-server $AZ_ACR_NAME \
-              --docker-username $AZ_SP_ID \
-              --docker-password $AZ_SP_PASSWORD \
-              --docker-email mthmulders@no-reply.github.com
-      - run:
-          name: Perform deployment
-          command: |
-            pushd deployment
-            PUBLIC_HOSTNAME=$(az aks show -g futbolin -n futbolin -o tsv | cut -f 6)
-            cat *.yml | sed s/futbolin.minikube/$PUBLIC_HOSTNAME/ > tmp.yml
-            kubectl apply -f tmp.yml
   web:
     docker:
       - image: circleci/node:10.15.0-stretch
