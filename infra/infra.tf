@@ -30,7 +30,7 @@ variable "dns_prefix" {}
 
 provider "azurerm" {
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
-  version = "=1.20.0"
+  version = "=1.28.0"
 
   subscription_id = "${var.subscription_id}"
   client_id       = "${var.client_id}"
@@ -51,11 +51,11 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = false
 }
 
-output "Resource Group" {
+output "Resource_Group" {
   value = "${azurerm_resource_group.rg.id}"
 }
 
-output "Azure Container Registry" {
+output "Azure_Container_Registry" {
   value = "${azurerm_container_registry.acr.id}"
 }
 
