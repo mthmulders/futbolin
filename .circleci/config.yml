@@ -6,6 +6,17 @@ workflows:
     jobs:
       - backend
       - web
+  nightly:
+    triggers:
+      - schedule:
+          cron: "14 3 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - backend
+      - web
 
 jobs:
   backend:
@@ -17,7 +28,7 @@ jobs:
           key: futbolin-backend-{{ .Branch }}-{{ checksum "backend/pom.xml" }}
       - run:
           name: Prepare build
-          command: mvn -f backend/pom.xml dependency:go-offline
+          command: mvn -f backend/pom.xml dependency:go-offline || true
       - save_cache:
           paths:
             - ~/.m2
