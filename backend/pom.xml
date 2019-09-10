@@ -14,10 +14,11 @@
         <maven.compiler.release>11</maven.compiler.release>
 
         <quarkus.version>0.21.2</quarkus.version>
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <modules>
-        <module>user-backend</module>
+        <module>user-service</module>
     </modules>
 
     <build>
@@ -64,6 +65,19 @@
                 <version>${quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.28</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
