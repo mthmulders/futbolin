@@ -9,7 +9,7 @@
     </parent>
     <artifactId>user-backend</artifactId>
 
-    <name>Futbolín User backend</name>
+    <name>Futbolín :: User backend</name>
 
     <dependencies>
         <dependency>
