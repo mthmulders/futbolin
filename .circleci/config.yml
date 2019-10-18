@@ -4,8 +4,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - backend
-      - web
+      - build
   nightly:
     triggers:
       - schedule:
@@ -15,29 +14,28 @@ workflows:
               only:
                 - master
     jobs:
-      - backend
-      - web
+      - build
 
 jobs:
-  backend:
+  build:
     docker:
-      - image: circleci/openjdk:11-jdk-sid
+      - image: circleci/openjdk:8-jdk-sid
     steps:
       - checkout
       - restore_cache:
-          key: futbolin-backend-{{ .Branch }}-{{ checksum "backend/pom.xml" }}
+          key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
       - run:
           name: Prepare build
-          command: mvn -f backend/pom.xml dependency:go-offline || true
+          command: mvn dependency:go-offline || true
       - save_cache:
           paths:
             - ~/.m2
             - ~/.sonar/cache
-          key: futbolin-backend-{{ .Branch }}-{{ checksum "backend/pom.xml" }}
+          key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
       - run:
           name: Build software
           command: |
-            mvn -f backend/pom.xml \
+            mvn \
               clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar \
               -Dsonar.projectKey=mthmulders_futbolin \
               -Dsonar.organization=mthmulders-github \
@@ -52,18 +50,3 @@ jobs:
           when: always
       - store_test_results:
           path: ~/junit
-  web:
-    docker:
-      - image: circleci/node:10.15.0-stretch
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Login to Azure Container Registry
-          command: |
-            docker login futbolin.azurecr.io -u $AZ_SP_ID -p $AZ_SP_PASSWORD
-      - run:
-          name: Build container
-          command: |
-            pushd web
-            ./build-container.sh $CIRCLE_BUILD_NUM
