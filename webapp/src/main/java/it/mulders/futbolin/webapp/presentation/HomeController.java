@@ -1,8 +1,6 @@
 package it.mulders.futbolin.webapp.presentation;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -23,7 +21,7 @@ public class HomeController {
 
     @GET
     @Produces("text/html; charset=UTF-8")
-    @View("home.html")
+    @View("home.jsp")
     public void show() {
         log.info("Welcome home!");
     }
