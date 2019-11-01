@@ -41,6 +41,14 @@
                 <configuration>
                     <libertyRuntimeVersion>19.0.0.10</libertyRuntimeVersion>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>compile-jsp</id>
+                        <goals>
+                            <goal>compile-jsp</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
