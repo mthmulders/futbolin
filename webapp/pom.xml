@@ -12,19 +12,6 @@
 
     <name>Futbolín :: Web App</name>
 
-    <repositories>
-        <repository>
-            <id>sonatype-oss-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -60,12 +47,12 @@
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
             <artifactId>krazo-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0-Beta1</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
             <artifactId>krazo-cxf</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0-Beta1</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
