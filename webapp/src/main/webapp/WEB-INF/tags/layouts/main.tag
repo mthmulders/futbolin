@@ -30,7 +30,10 @@
 
 <footer class="footer py-3 mt-auto">
     <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">
+            &copy; 2019 &mdash; 2020 Maarten Mulders //
+            <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a>
+        </span>
     </div>
 </footer>
 
