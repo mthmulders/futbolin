@@ -39,7 +39,7 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <libertyRuntimeVersion>19.0.0.10</libertyRuntimeVersion>
+                    <libertyRuntimeVersion>19.0.0.12</libertyRuntimeVersion>
                 </configuration>
             </plugin>
         </plugins>
