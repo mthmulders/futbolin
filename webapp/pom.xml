@@ -47,6 +47,9 @@
                         <goals>
                             <goal>compile-jsp</goal>
                         </goals>
+                        <configuration>
+                            <features>beanValidation-2.0,cdi-2.0,jaxrs-2.1,jsp-2.3</features>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
