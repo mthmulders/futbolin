@@ -2,7 +2,7 @@
 target/
 *.iml
 deployment/traefik-web-ui.yml
-infra.sh
-infra/env.sh
-infra/*terraform*
-deployment/
+infra/.terraform
+infra/terraform.tfvars
+infra/*tfstate*
+infra/k8s/config
