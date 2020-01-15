@@ -5,6 +5,7 @@ workflows:
   build:
     jobs:
       - build
+          context: Bintray
   nightly:
     triggers:
       - schedule:
@@ -15,6 +16,7 @@ workflows:
                 - master
     jobs:
       - build
+          context: Bintray
 
 jobs:
   build:
@@ -48,5 +50,14 @@ jobs:
             find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/junit/ \;
             find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} ~/junit/ \;
           when: always
+
+      - run:
+          name: Configure Bintray registry
+          command: |
+        - run:
+          name: Publish containers
+          command: |
+            docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
+            mvn dockerfile:push -P docker --pl webapp/
       - store_test_results:
           path: ~/junit
