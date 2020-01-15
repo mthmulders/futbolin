@@ -56,6 +56,6 @@ jobs:
           name: Publish containers
           command: |
             docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
-            mvn dockerfile:push -P docker --pl webapp/
+            mvn package dockerfile:push -P docker --pl webapp/
       - store_test_results:
           path: ~/junit
