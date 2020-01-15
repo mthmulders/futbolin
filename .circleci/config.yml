@@ -52,9 +52,6 @@ jobs:
           when: always
 
       - run:
-          name: Configure Bintray registry
-          command: |
-        - run:
           name: Publish containers
           command: |
             docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
