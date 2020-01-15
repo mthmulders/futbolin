@@ -24,6 +24,7 @@ jobs:
       - image: circleci/openjdk:11-jdk-sid
     steps:
       - checkout
+      - setup_remote_docker
       - restore_cache:
           key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
       - run:
