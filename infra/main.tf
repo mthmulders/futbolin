@@ -1,6 +1,7 @@
 terraform {
   required_providers {
     kubernetes = "~> 1.10.0"
+    local = "~> 1.4"
     oci = "~> 3.56"
   }
 }
