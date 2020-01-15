@@ -4,7 +4,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
+      - build:
           context: Bintray
   nightly:
     triggers:
@@ -15,7 +15,7 @@ workflows:
               only:
                 - master
     jobs:
-      - build
+      - build:
           context: Bintray
 
 jobs:
