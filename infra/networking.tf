@@ -82,30 +82,15 @@ resource "oci_core_security_list" "futbolin-workers" {
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
 
-  # Only for troubleshooting
-  //  ingress_security_rules {
-  //    protocol = "6" # TCP
-  //    source   = "0.0.0.0/0"
-  //    tcp_options {
-  //      min = 22
-  //      max = 22
-  //    }
-  //  }
+  # ------------- #
+  # INBOUND RULES #
+  # ------------- #
 
-  # Stateless ingress and egress rules that allow all traffic between
-  # different worker node subnets.
-  #
-  # Those are not necessary since there is only one worker node subnet.
-
-  # Stateless ingress and egress rules that allow all traffic between
-  # worker node subnets and load balancer subnets (if specified).
-  egress_security_rules {
-    protocol    = "all"
-    destination = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
-  }
+  # Stateless ingress rules to enable intra-VCN traffic
   ingress_security_rules {
-    protocol = "all"
-    source   = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
+    protocol  = "6" # TCP
+    source    = "10.0.10.0/24"
+    stateless = true
   }
 
   # This rule enables worker nodes to receive Path MTU Discovery fragmentation messages.
@@ -118,17 +103,6 @@ resource "oci_core_security_list" "futbolin-workers" {
     }
   }
 
-  # Stateless ingress rules to enable intra-VCN traffic
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "10.0.10.0/24"
-  }
-  # Stateless egress rules to enable intra-VCN traffic
-  egress_security_rules {
-    destination = "10.0.10.0/24"
-    protocol    = "6" # TCP
-  }
-
   # Stateful ingress rules to allow Container Engine for Kubernetes to access
   # worker nodes on port 22 from the following source CIDR blocks:
   ingress_security_rules {
@@ -137,8 +111,7 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "130.35.0.0/16"
-    stateless = false
+    source = "130.35.0.0/16"
   }
   ingress_security_rules {
     protocol = "6" # TCP
@@ -146,8 +119,7 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "134.70.0.0/17"
-    stateless = false
+    source = "134.70.0.0/17"
   }
   ingress_security_rules {
     protocol = "6" # TCP
@@ -155,8 +127,7 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "138.1.0.0/16"
-    stateless = false
+    source = "138.1.0.0/16"
   }
   ingress_security_rules {
     protocol = "6" # TCP
@@ -164,8 +135,7 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "140.91.0.0/17"
-    stateless = false
+    source = "140.91.0.0/17"
   }
   ingress_security_rules {
     protocol = "6" # TCP
@@ -173,8 +143,7 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "147.154.0.0/16"
-    stateless = false
+    source = "147.154.0.0/16"
   }
   ingress_security_rules {
     protocol = "6" # TCP
@@ -182,8 +151,38 @@ resource "oci_core_security_list" "futbolin-workers" {
       min = 22
       max = 22
     }
-    source    = "192.29.0.0/16"
-    stateless = false
+    source = "192.29.0.0/16"
+  }
+
+  # Optional rule to enable inbound SSH traffic from the internet on port 22 to access worker nodes.
+  # ingress_security_rules {
+  #   protocol = "6" # TCP
+  #   source   = "0.0.0.0/0"
+  #   tcp_options {
+  #     min = 22
+  #     max = 22
+  #   }
+  # }
+
+  # Optional rule to enable inbound traffic to the worker nodes on the default NodePort range of 30000 to 32767
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source   = "0.0.0.0/0"
+    tcp_options {
+      min = 30000
+      max = 32767
+    }
+  }
+
+  # -------------- #
+  # OUTBOUND RULES #
+  # -------------- #
+
+  # Optional rule to enable intra-VCN traffic
+  egress_security_rules {
+    protocol    = "6" # TCP
+    destination = "10.0.10.0/24"
+    stateless   = true
   }
 
   # This rule enables outbound ICMP traffic.
@@ -192,13 +191,10 @@ resource "oci_core_security_list" "futbolin-workers" {
     destination      = "all-${var.oci_services_region}-services-in-oracle-services-network"
     destination_type = "SERVICE_CIDR_BLOCK"
   }
-
-  # Stateful egress rules that allow traffic between worker node subnets
-  # and Container Engine for Kubernetes.
+  # Rules that allow traffic between worker node and Container Engine for Kubernetes.
   egress_security_rules {
     destination      = "all-${var.oci_services_region}-services-in-oracle-services-network"
     destination_type = "SERVICE_CIDR_BLOCK"
-    stateless        = false
     protocol         = "6" # TCP
     tcp_options {
       min = 80
@@ -208,7 +204,6 @@ resource "oci_core_security_list" "futbolin-workers" {
   egress_security_rules {
     destination      = "all-${var.oci_services_region}-services-in-oracle-services-network"
     destination_type = "SERVICE_CIDR_BLOCK"
-    stateless        = false
     protocol         = "6" # TCP
     tcp_options {
       min = 443
@@ -218,7 +213,6 @@ resource "oci_core_security_list" "futbolin-workers" {
   egress_security_rules {
     destination      = "all-${var.oci_services_region}-services-in-oracle-services-network"
     destination_type = "SERVICE_CIDR_BLOCK"
-    stateless        = false
     protocol         = "6" # TCP
     tcp_options {
       min = 6443
@@ -228,7 +222,6 @@ resource "oci_core_security_list" "futbolin-workers" {
   egress_security_rules {
     destination      = "all-${var.oci_services_region}-services-in-oracle-services-network"
     destination_type = "SERVICE_CIDR_BLOCK"
-    stateless        = false
     protocol         = "6" # TCP
     tcp_options {
       min = 12250
@@ -236,20 +229,17 @@ resource "oci_core_security_list" "futbolin-workers" {
     }
   }
 
-  # Optionally, you can include ingress rules for public worker node subnets to:
-  # Explicitly allow SSH access to worker nodes on port 22
+  # Stateless ingress and egress rules that allow all traffic between
+  # worker node subnets and load balancer subnets (if specified).
+  //  egress_security_rules {
+  //    protocol    = "all"
+  //    destination = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
+  //  }
+  //  ingress_security_rules {
+  //    protocol = "all"
+  //    source   = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
+  //  }
 
-  # Optionally, you can include ingress rules for public worker node subnets to:
-  # Allow inbound traffic to the worker nodes on the default NodePort range of 30000 to 32767
-  ingress_security_rules {
-    protocol  = "6" # TCP
-    source    = oci_core_vcn.futbolin.cidr_block
-    stateless = false
-    tcp_options {
-      min = 30000
-      max = 32767
-    }
-  }
 }
 
 # Configure a security list for the Load Balancer subnet
@@ -260,12 +250,14 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
 
   # This rule enables incoming public traffic to service load balancers.
   ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
+    protocol  = "6" # TCP
+    source    = "0.0.0.0/0"
+    stateless = true
   }
   # This rule enables responses from a web application through the service load balancers.
   egress_security_rules {
     protocol    = "6" # TCP
     destination = "0.0.0.0/0"
+    stateless   = true
   }
 }
