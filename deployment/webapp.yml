@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: futbolin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: webapp
+          image: mthmulders-docker-futbolin.bintray.io/futbolin-webapp
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9080
+      restartPolicy: Always
