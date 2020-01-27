@@ -71,7 +71,7 @@
                                          dependency -->
                                     <banDuplicateClasses>
                                         <scopes>
-                                            <scope>compile</scope>
+                                            <scope>runtime</scope>
                                         </scopes>
                                     </banDuplicateClasses>
 
