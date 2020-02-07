@@ -37,7 +37,7 @@ jobs:
               -Dsonar.organization=mthmulders-github \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.java.source=11 \
-              -Dsonar.jacoco.reportPath=**/jacoco.exec \
+              -Dsonar.coverage.jacoco.xmlReportPaths=**/jacoco.xml \
               -Dsonar.login=$SONAR_LOGIN
       - run:
           name: Save test results

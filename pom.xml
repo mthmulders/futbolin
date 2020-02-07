@@ -29,6 +29,11 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>1.4.1</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -43,6 +48,15 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.5</version>
+                    <executions>
+                        <execution>
+                            <id>report</id>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <phase>post-integration-test</phase>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
