@@ -18,7 +18,7 @@ class ViewLocatorTest implements WithAssertions {
     private ServletContext servletContext = mock(ServletContext.class);
     private Configuration krazoConfiguration = mock(Configuration.class);
 
-    private ViewLocator viewLocator = new ViewLocator(servletContext, krazoConfiguration);
+    private ViewLocator viewLocator = new ViewLocator(krazoConfiguration, servletContext);
 
     @Test
     void hasViewWithName_existingView_shouldReturnTrue() throws MalformedURLException {
