@@ -31,11 +31,13 @@ jobs:
       - run:
           name: Build software
           command: |
-            mvn \
-              clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar \
+            mvn -P coverage \
+              clean verify sonar:sonar \
               -Dsonar.projectKey=mthmulders_futbolin \
               -Dsonar.organization=mthmulders-github \
               -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.java.source=11 \
+              -Dsonar.coverage.jacoco.xmlReportPaths=webapp/target/site/jacoco/jacoco.xml \
               -Dsonar.login=$SONAR_LOGIN
       - run:
           name: Save test results
