@@ -30,10 +30,10 @@ resource "oci_core_service_gateway" "futbolin" {
 }
 
 # Route traffic to the Internet over the Internet Gateway
-resource "oci_core_route_table" "futbolin-internet-routing" {
+resource "oci_core_route_table" "loadbalancer-routing" {
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
-  display_name   = "Internet Route Table"
+  display_name   = "Load Balancers Routing Table"
   route_rules {
     network_entity_id = oci_core_internet_gateway.futbolin.id
     destination       = "0.0.0.0/0"
@@ -41,14 +41,16 @@ resource "oci_core_route_table" "futbolin-internet-routing" {
 }
 
 # Route traffic to Oracle Cloud services over the Service Gateway
-resource "oci_core_route_table" "futbolin-services-routing" {
+resource "oci_core_route_table" "worker-routing" {
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
-  display_name   = "Services Route Table"
+  display_name   = "Workers Routing Table"
+  # The example says to have a route to a Services Gateway, but according to
+  # https://docs.cloud.oracle.com/en-us/iaas/Content/knownissues.htm#sgw-route-rule-conflict
+  # this means we cannot have connection to the Internet.
   route_rules {
-    destination_type  = "SERVICE_CIDR_BLOCK"
-    destination       = "all-${var.oci_services_region}-services-in-oracle-services-network"
-    network_entity_id = oci_core_service_gateway.futbolin.id
+    network_entity_id = oci_core_internet_gateway.futbolin.id
+    destination       = "0.0.0.0/0"
   }
 }
 
@@ -58,7 +60,7 @@ resource "oci_core_subnet" "futbolin-worker-subnet" {
   display_name   = "Futbolín Worker Subnet"
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
-  route_table_id = oci_core_route_table.futbolin-services-routing.id
+  route_table_id = oci_core_route_table.worker-routing.id
   security_list_ids = [
     oci_core_security_list.futbolin-workers.id
   ]
@@ -70,7 +72,7 @@ resource "oci_core_subnet" "futbolin-loadbalancer-subnet" {
   display_name   = "Futbolín Load Balancer Subnet"
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
-  route_table_id = oci_core_route_table.futbolin-internet-routing.id
+  route_table_id = oci_core_route_table.loadbalancer-routing.id
   security_list_ids = [
     oci_core_security_list.futbolin-loadbalancers.id
   ]
@@ -155,14 +157,14 @@ resource "oci_core_security_list" "futbolin-workers" {
   }
 
   # Optional rule to enable inbound SSH traffic from the internet on port 22 to access worker nodes.
-  # ingress_security_rules {
-  #   protocol = "6" # TCP
-  #   source   = "0.0.0.0/0"
-  #   tcp_options {
-  #     min = 22
-  #     max = 22
-  #   }
-  # }
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source   = "0.0.0.0/0"
+    tcp_options {
+      min = 22
+      max = 22
+    }
+  }
 
   # Optional rule to enable inbound traffic to the worker nodes on the default NodePort range of 30000 to 32767
   ingress_security_rules {
@@ -228,18 +230,10 @@ resource "oci_core_security_list" "futbolin-workers" {
       max = 12250
     }
   }
-
-  # Stateless ingress and egress rules that allow all traffic between
-  # worker node subnets and load balancer subnets (if specified).
-  //  egress_security_rules {
-  //    protocol    = "all"
-  //    destination = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
-  //  }
-  //  ingress_security_rules {
-  //    protocol = "all"
-  //    source   = oci_core_subnet.futbolin-loadbalancer-subnet.cidr_block
-  //  }
-
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol = "6" # TCP
+  }
 }
 
 # Configure a security list for the Load Balancer subnet
