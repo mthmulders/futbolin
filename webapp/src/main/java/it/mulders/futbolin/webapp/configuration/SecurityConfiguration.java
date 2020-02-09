@@ -53,6 +53,7 @@ public class SecurityConfiguration implements ConfigFactory {
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
         oidcConfiguration.setClientId(params.clientId);
         oidcConfiguration.setSecret(params.secret);
+        oidcConfiguration.setScope("openid email");
         oidcConfiguration.setUseNonce(true);
         return oidcConfiguration;
     }
