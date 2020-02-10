@@ -15,18 +15,22 @@ public class MergedConfiguration {
     private final Properties configuration;
 
     public MergedConfiguration(final String filename) {
-        this.environment = System.getenv();
-        this.configuration = new Properties();
+        environment = System.getenv();
+        configuration = loadConfigurationFile(filename);
+    }
 
+    private Properties loadConfigurationFile(final String filename) {
+        var result = new Properties();
         try (var resource = getClass().getResourceAsStream(filename)) {
             if (resource != null) {
-                this.configuration.load(resource);
+                result.load(resource);
             } else {
                 log.warn("Resource \"{}\" not found on classpath", filename);
             }
         } catch (final IOException ioe) {
             log.error("Failed to read resource \"{}\" from classpath", filename, ioe);
         }
+        return result;
     }
 
     protected String getValue(final String environmentVariableName, final String configurationKey) {

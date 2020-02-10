@@ -9,7 +9,7 @@ class SecurityConfigurationTest implements WithAssertions {
 
     @Test
     void loadSecurityParameters_shouldLoadFromOidcPropertiesFile() {
-        var parameters = configuration.loadSecurityParameters();
+        var parameters = SecurityConfiguration.loadSecurityParameters();
 
         assertThat(parameters.callbackUrl).isEqualTo("http://localhost:9080/callback");
         assertThat(parameters.clientId).isEqualTo("54879548932");

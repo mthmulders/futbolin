@@ -18,8 +18,8 @@ public class SecurityConfiguration implements ConfigFactory {
         final String secret;
     }
 
-    private static final class OidcConfigurationValues extends MergedConfiguration {
-        public OidcConfigurationValues() {
+    private static final class MergedOidcConfiguration extends MergedConfiguration {
+        MergedOidcConfiguration() {
             super("/oidc.properties");
         }
 
@@ -36,10 +36,10 @@ public class SecurityConfiguration implements ConfigFactory {
         }
     }
 
-    private final SecurityParameters params = loadSecurityParameters();
+    private static final SecurityParameters params = loadSecurityParameters();
 
-    public SecurityParameters loadSecurityParameters() {
-        var configuration = new OidcConfigurationValues();
+    static SecurityParameters loadSecurityParameters() {
+        var configuration = new MergedOidcConfiguration();
 
         return SecurityParameters.builder()
                 .callbackUrl(configuration.getOidcCallbackUrl())
