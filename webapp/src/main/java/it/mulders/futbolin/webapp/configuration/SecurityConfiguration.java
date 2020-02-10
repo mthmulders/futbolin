@@ -1,5 +1,6 @@
 package it.mulders.futbolin.webapp.configuration;
 
+import it.mulders.futbolin.webapp.security.pac4j.DefaultClientCallbackUrlResolver;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.pac4j.core.client.Clients;
@@ -62,6 +63,8 @@ public class SecurityConfiguration implements ConfigFactory {
             profile.addRole("ROLE_ADMIN");
             return profile;
         });
+        oidcClient.setCallbackUrlResolver(new DefaultClientCallbackUrlResolver());
+        oidcClient.setCallbackUrl(params.callbackUrl);
         return oidcClient;
     }
 
