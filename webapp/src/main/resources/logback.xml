@@ -6,7 +6,9 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <logger name="it.mulders.futbolin" level="info" />
+
+    <root level="warn">
         <appender-ref ref="stdout" />
     </root>
 </configuration>
