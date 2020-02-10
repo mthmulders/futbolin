@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <h1>Privacy Policy</h1>
             <p>
-                Futbolín is a personal pet project of <a href="https://maarten.mulders.it/" target="_blank">Maarten Mulders</a> or "I" / "me".
+                Futbolín is a personal pet project of <a href="https://maarten.mulders.it/" target="_blank" rel="noopener noreferrer">Maarten Mulders</a> or "I" / "me".
                 This privacy policy will explain how I use the personal data I collect from you when you use this website.
                 It is based on the <a href="https://gdpr.eu/privacy-notice/" target="_blank">template</a> provided by Proton Technologies AG.
             </p>
@@ -106,10 +106,10 @@
             </p>
 
             <ul>
-                <li><a href="https://www.linkedin.com/in/mthmulders" target="_blank">LinkedIn</a></li>
-                <li><a href="https://twitter.com/mthmulders" target="_blank">Twitter</a></li>
-                <li><a href="https://github.com/mthmulders" target="_blank">GitHub</a></li>
-                <li><a href="https://keybase.io/mthm" target="_blank">Keybase</a></li>
+                <li><a href="https://www.linkedin.com/in/mthmulders" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://twitter.com/mthmulders" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+                <li><a href="https://github.com/mthmulders" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://keybase.io/mthm" target="_blank" rel="noopener noreferrer">Keybase</a></li>
             </ul>
 
             <h2>Cookies</h2>
@@ -117,7 +117,7 @@
                 Cookies are small text files placed on your computer that your browser shares with the website that put them there.
                 When you visit this website, I may collect information from you automatically through cookies or similar technology.
 
-                For further information, visit <a href="https://www.allaboutcookies.org/" target="_blank">allaboutcookies.org</a>.
+                For further information, visit <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer">allaboutcookies.org</a>.
             </p>
 
             <h3>How do I use cookies?</h3>
@@ -165,15 +165,15 @@
             <h2>How to contact me</h2>
             <p>
                 If you have any questions about my privacy policy, the data I hold on you, or you would like to exercise one of your data protection rights, please do not hesitate to contact me.
-                
+
                 You can reach me over the following channels:
             </p>
 
             <ul>
-                <li><a href="https://www.linkedin.com/in/mthmulders" target="_blank">LinkedIn</a></li>
-                <li><a href="https://twitter.com/mthmulders" target="_blank">Twitter</a></li>
-                <li><a href="https://github.com/mthmulders" target="_blank">GitHub</a></li>
-                <li><a href="https://keybase.io/mthm" target="_blank">Keybase</a></li>
+                <li><a href="https://www.linkedin.com/in/mthmulders" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://twitter.com/mthmulders" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+                <li><a href="https://github.com/mthmulders" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://keybase.io/mthm" target="_blank" rel="noopener noreferrer">Keybase</a></li>
             </ul>
         </div>
     </div>
