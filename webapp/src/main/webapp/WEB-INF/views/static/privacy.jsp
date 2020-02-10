@@ -9,7 +9,7 @@
             <p>
                 Futbolín is a personal pet project of <a href="https://maarten.mulders.it/" target="_blank" rel="noopener noreferrer">Maarten Mulders</a> or "I" / "me".
                 This privacy policy will explain how I use the personal data I collect from you when you use this website.
-                It is based on the <a href="https://gdpr.eu/privacy-notice/" target="_blank">template</a> provided by Proton Technologies AG.
+                It is based on the <a href="https://gdpr.eu/privacy-notice/" target="_blank" rel="noopener noreferrer">template</a> provided by Proton Technologies AG.
             </p>
             <h2>What data do I collect?</h2>
             <p>
