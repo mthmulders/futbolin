@@ -21,7 +21,7 @@ workflows:
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11-jdk-sid
+      - image: circleci/openjdk:11-jdk-sid-node
     steps:
       - checkout
       - setup_remote_docker
