@@ -31,7 +31,7 @@
                 <version>3.2</version>
                 <configuration>
                     <libertyRuntimeVersion>19.0.0.12</libertyRuntimeVersion>
-                    <serverName>futbolin</serverName>
+                    <serverXmlFile>src/main/liberty/server.xml</serverXmlFile>
                 </configuration>
             </plugin>
         </plugins>
@@ -69,23 +69,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>j2e-pac4j</artifactId>
-            <version>4.1.0</version>
-            <exclusions>
-                <!-- Version is pulled in by pac4j-oidc. -->
-                <exclusion>
-                    <groupId>org.pac4j</groupId>
-                    <artifactId>pac4j-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-oidc</artifactId>
-            <version>3.8.3</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
