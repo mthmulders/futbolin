@@ -41,8 +41,7 @@
     </googleLogin>
 
     <authFilter>
-        <webApp matchType="equals"
-                name="${application.name}" />
+        <webApp matchType="equals" name="${application.name}" />
     </authFilter>
 
     <webApplication location="${application.name}-webapp.war" name="${application.name}" contextRoot="/">
