@@ -40,7 +40,7 @@
                     <h2 class="card-title">My Tournaments</h2>
                     <c:choose>
                         <c:when test="${tournaments.size() > 0}">
-                            <p class="card-text">Your are participating in these tournaments:</p>
+                            <p class="card-text">You are participating in these tournaments:</p>
                             <ul>
                                 <c:forEach items="${tournaments}" var="tournament">
                                     <li>${tournament}</li>
