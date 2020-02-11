@@ -29,10 +29,6 @@ provider "oci" {
   region               = var.region
 }
 
-provider "kubernetes" {
-  config_path = local_file.kubeconfig.filename
-}
-
 # Following https://www.terraform.io/docs/providers/oci/guides/best_practices.html
 variable "image_ids" {
   type = map(string)
