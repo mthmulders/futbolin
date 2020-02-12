@@ -30,7 +30,11 @@ public class EnhancedPrincipalFilter extends HttpFilter {
                             final FilterChain chain) throws IOException, ServletException {
         var originalPrincipal = request.getUserPrincipal();
 
-        if (originalPrincipal instanceof FutbolinPrincipal) {
+        if (originalPrincipal == null) {
+            log.debug("Request does not have user principal, continuing");
+            chain.doFilter(request, response);
+            return;
+        } else if (originalPrincipal instanceof FutbolinPrincipal) {
             log.debug("Request user principal is already of expected type, continuing");
             chain.doFilter(request, response);
             return;

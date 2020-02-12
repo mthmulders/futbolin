@@ -36,6 +36,15 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
     }
 
     @Test
+    void doFilter_withoutPrincipal_shouldPassRequest() throws IOException, ServletException {
+        var request = new MockHttpServletRequest();
+
+        filter.doFilter(request, response, chain);
+
+        verify(chain).doFilter(request, response);
+    }
+
+    @Test
     void doFilter_withAnotherPrincipal_shouldReplacePrincipal() throws IOException, ServletException {
         var name = "dummy";
         var principal = new MockUserPrincipal(name);
