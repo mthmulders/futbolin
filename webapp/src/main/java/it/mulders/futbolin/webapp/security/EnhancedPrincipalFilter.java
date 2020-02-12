@@ -18,7 +18,7 @@ import java.util.Map;
 @Slf4j
 @WebFilter(urlPatterns = "/app/*")
 public class EnhancedPrincipalFilter extends HttpFilter {
-    private final Map<Principal, FutbolinPrincipal> userCache = new HashMap<>();
+    private transient final Map<Principal, FutbolinPrincipal> userCache = new HashMap<>();
 
     @Override
     public void init(final FilterConfig filterConfig) {
