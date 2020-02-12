@@ -22,6 +22,7 @@ public class EnhancedPrincipalFilter extends HttpFilter {
 
     @Override
     public void init(final FilterConfig filterConfig) {
+        // Nothing to do here.
     }
 
     @Override
@@ -45,6 +46,7 @@ public class EnhancedPrincipalFilter extends HttpFilter {
         var replacedPrincipal = userCache.get(originalPrincipal);
 
         var wrappedRequest = new HttpServletRequestWrapper(request) {
+            @Override
             public Principal getUserPrincipal() {
                 return replacedPrincipal;
             }
