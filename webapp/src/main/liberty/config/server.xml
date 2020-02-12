@@ -15,9 +15,9 @@
     <variable name="default.http.port" defaultValue="9080" />
     <variable name="default.https.port" defaultValue="9443" />
 
-    <variable name="oidc.client.id" />        <!-- override using environment variable OIDC_CLIENT_ID         -->
-    <variable name="oidc.client.secret" />    <!-- override using environment variable OIDC_CLIENT_SECRET     -->
-                                              <!-- encode the secret with WLP_HOME/bin/securityUtility encode -->
+    <variable name="oidc.client.id" defaultValue="" />     <!-- override using environment variable OIDC_CLIENT_ID         -->
+    <variable name="oidc.client.secret" defaultValue="" /> <!-- override using environment variable OIDC_CLIENT_SECRET     -->
+                                                           <!-- encode the secret with WLP_HOME/bin/securityUtility encode -->
 
     <!--
     Reverse Proxy host and port; see
@@ -32,11 +32,25 @@
     <logging traceSpecification="com.ibm.ws.security.openidconnect*=all=enabled" maxFiles="8" maxFileSize="200" />
     -->
 
+    <!-- Define the keystore that holds the trusted certificates for initiating connections -->
+    <keyStore id="google-client-keystore"
+              location="${client.keystore.file}"
+              password="${client.keystore.password}"
+              readOnly="true" />
+
+    <!-- Define an SSL context that uses the aforementioned keystore -->
+    <ssl id="google-client-ssl-context"
+         keyStoreRef="google-client-keystore"
+         trustStoreRef="google-client-keystore"
+         trustDefaultCerts="false"
+         verifyHostname="true" />
+
     <googleLogin clientId="${oidc.client.id}"
                  clientSecret="${oidc.client.secret}"
                  scope="openid email"
+                 sslRef="google-client-ssl-context"
                  redirectToRPHostAndPort="${oidc.rpHostAndPort}"
-                 useSystemPropertiesForHttpClientConnections="true">
+                 useSystemPropertiesForHttpClientConnections="false">
         <authFilterRef name="authFilter-1" />
     </googleLogin>
 

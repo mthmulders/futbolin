@@ -14,6 +14,11 @@
 
     <properties>
         <krazo.version>1.0.0</krazo.version>
+        <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
+        <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
+
+        <liberty.var.client.keystore.file>${client.truststore}</liberty.var.client.keystore.file>
+        <liberty.var.client.keystore.password>${client.truststore.password}</liberty.var.client.keystore.password>
     </properties>
 
     <build>
@@ -23,6 +28,39 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <keystore>${client.truststore}</keystore>
+                    <storepass>${client.truststore.password}</storepass>
+                    <storetype>pkcs12</storetype>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>remove-file</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>import-google-trust-services</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>google-trust-services</alias>
+                            <file>${project.basedir}/src/main/certs/google-trust-services.pem</file>
+                            <noprompt>true</noprompt>
+                            <trustcacerts>false</trustcacerts>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
