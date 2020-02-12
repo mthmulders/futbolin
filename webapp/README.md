@@ -4,15 +4,29 @@ This module contains the user-facing web application for Futbolín.
 
 ## Configuration
 
-Configuration follows a two-step approach.
-Settings can be changed in a configuration file that is packaged with the application.
-This is a good place for "sane defaults".
-You can override some settings using environment variables.
+You can configure the web application using environment variables.
 
 This are the supported configuration settings.
 
-| Configuration file | Key | Environment variable name | Description |
-| --- | --- | --- | --- |
-| **oidc.properties** | `oidc.callback.url` | `OIDC_CALLBACK_URL` | Callback URL for the OpenID Connect flow |
-| **oidc.properties** | `oidc.client.id` | `OIDC_CLIENT_ID` | Client identifier for the OpenID Connect integration |
-| **oidc.properties** | `oidc.client.secret` | `OIDC_CLIENT_SECRET` | Client secret for the OpenID Connect integration |
+| Environment variable name | Description |
+| --- | --- |
+| `CLIENT_KEYSTORE_FILE` | Password to the aforementioned file. |
+| `CLIENT_KEYSTORE_PASSWORD` | Path to the keystore (generated during build) with trusted certificates for interacting with other systems. |
+| `OIDC_CLIENT_ID` | Client identifier for the OpenID Connect integration |
+| `OIDC_CLIENT_SECRET` | Client secret for the OpenID Connect integration |
+| `OIDC_RPHOSTANDPORT` | Host and port (`localhost:9443`) for constructing the OpenID Connect redirect URL.
+
+## Development
+
+For convenience, you can create a simple script, say **run.sh**, with the following content:
+
+```sh
+#!/usr/bin/env bash
+
+export OIDC_CLIENT_ID=...
+export OIDC_CLIENT_SECRET=...
+mvn generate-resources liberty:dev
+```
+
+Replace `...` above with your actual values.
+The ones not listed above have sane defaults defined in the POM.
