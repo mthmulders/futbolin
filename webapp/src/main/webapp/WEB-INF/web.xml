@@ -20,11 +20,15 @@
         </auth-constraint>
     </security-constraint>
 
-    <!-- Except for the home screen (which can be viewed anonymously) -->
+    <!-- Require not authentication for the home screen and the privacy policy -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>welcome-page</web-resource-name>
             <url-pattern>/app/home</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>privacy-page</web-resource-name>
+            <url-pattern>/app/static/privacy</url-pattern>
         </web-resource-collection>
     </security-constraint>
 
