@@ -5,13 +5,71 @@
         <feature>cdi-2.0</feature>
         <feature>jaxrs-2.1</feature>
         <feature>jsp-2.3</feature>
+
+        <feature>appSecurity-3.0</feature>
+        <feature>socialLogin-1.0</feature>
     </featureManager>
+
+    <variable name="application.name" defaultValue="futbolin" />
 
     <variable name="default.http.port" defaultValue="9080" />
     <variable name="default.https.port" defaultValue="9443" />
 
-    <webApplication location="futbolin-webapp.war" contextRoot="/" />
+    <variable name="oidc.client.id" defaultValue="" />     <!-- override using environment variable OIDC_CLIENT_ID         -->
+    <variable name="oidc.client.secret" defaultValue="" /> <!-- override using environment variable OIDC_CLIENT_SECRET     -->
+                                                           <!-- encode the secret with WLP_HOME/bin/securityUtility encode -->
 
-    <httpEndpoint host="*" httpPort="${default.http.port}"
-                   httpsPort="${default.https.port}" id="defaultHttpEndpoint" />
+    <!--
+    Reverse Proxy host and port; see
+    https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_config_oidc_rp.html
+    -->
+    <variable name="oidc.rpHostAndPort" defaultValue="https://localhost:9443" />
+
+    <!-- Enable detailed logging for security features. -->
+    <!--
+    <logging traceSpecification="com.ibm.ws.security*=all=enabled"               maxFiles="8" maxFileSize="200" />
+    <logging traceSpecification="com.ibm.ws.security.social*=all=enabled"        maxFiles="8" maxFileSize="200" />
+    <logging traceSpecification="com.ibm.ws.security.openidconnect*=all=enabled" maxFiles="8" maxFileSize="200" />
+    -->
+
+    <!-- Define the keystore that holds the trusted certificates for initiating connections -->
+    <keyStore id="google-client-keystore"
+              location="${client.keystore.file}"
+              password="${client.keystore.password}"
+              readOnly="true" />
+
+    <!-- Define an SSL context that uses the aforementioned keystore -->
+    <ssl id="google-client-ssl-context"
+         keyStoreRef="google-client-keystore"
+         trustStoreRef="google-client-keystore"
+         trustDefaultCerts="false"
+         verifyHostname="true" />
+
+    <googleLogin clientId="${oidc.client.id}"
+                 clientSecret="${oidc.client.secret}"
+                 scope="openid email"
+                 sslRef="google-client-ssl-context"
+                 redirectToRPHostAndPort="${oidc.rpHostAndPort}"
+                 useSystemPropertiesForHttpClientConnections="false">
+        <authFilterRef name="authFilter-1" />
+    </googleLogin>
+
+    <authFilter>
+        <webApp matchType="equals" name="${application.name}" />
+    </authFilter>
+
+    <webApplication location="${application.name}-webapp.war" name="${application.name}" contextRoot="/">
+        <application-bnd>
+            <security-role name="user">
+                <special-subject type="ALL_AUTHENTICATED_USERS" />
+            </security-role>
+        </application-bnd>
+    </webApplication>
+
+    <httpEndpoint host="*"
+                  httpPort="${default.http.port}"
+                  httpsPort="${default.https.port}"
+                  id="defaultHttpEndpoint" />
+
+    <applicationMonitor dropinsEnabled="false" />
 </server>

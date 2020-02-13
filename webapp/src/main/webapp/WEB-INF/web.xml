@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+
+    <!-- Require authenticated users under /app -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secured-pages</web-resource-name>
+            <url-pattern>/app/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Require not authentication for the home screen and the privacy policy -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>welcome-page</web-resource-name>
+            <url-pattern>/app/home</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>privacy-page</web-resource-name>
+            <url-pattern>/app/static/privacy</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+</web-app>

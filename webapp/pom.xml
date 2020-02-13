@@ -14,6 +14,11 @@
 
     <properties>
         <krazo.version>1.0.0</krazo.version>
+        <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
+        <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
+
+        <liberty.var.client.keystore.file>${client.truststore}</liberty.var.client.keystore.file>
+        <liberty.var.client.keystore.password>${client.truststore.password}</liberty.var.client.keystore.password>
     </properties>
 
     <build>
@@ -26,12 +31,45 @@
             </plugin>
 
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <keystore>${client.truststore}</keystore>
+                    <storepass>${client.truststore.password}</storepass>
+                    <storetype>pkcs12</storetype>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>remove-file</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>import-google-trust-services</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>google-trust-services</alias>
+                            <file>${project.basedir}/src/main/certs/google-trust-services.pem</file>
+                            <noprompt>true</noprompt>
+                            <trustcacerts>false</trustcacerts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
                     <libertyRuntimeVersion>19.0.0.12</libertyRuntimeVersion>
-                    <serverName>futbolin</serverName>
+                    <serverXmlFile>src/main/liberty/server.xml</serverXmlFile>
                 </configuration>
             </plugin>
         </plugins>
@@ -92,6 +130,12 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mockrunner</groupId>
+            <artifactId>mockrunner-servlet</artifactId>
+            <version>2.0.1</version>
+            <scope>test</scope>
         </dependency>
         <!-- Tied to the version of OpenLiberty that we use -->
         <dependency>
