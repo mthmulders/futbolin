@@ -1,6 +1,6 @@
-FROM open-liberty:19.0.0.9-javaee8-java11
+FROM open-liberty:19.0.0.9-kernel-java11
 
-ARG WAR_FILE
-
-COPY src/main/docker/server.xml /opt/ol/wlp/usr/servers/defaultServer/server.xml
-COPY target/${WAR_FILE} /tmp/app.war
+COPY src/main/liberty/config/server.xml /opt/ol/wlp/usr/servers/defaultServer/server.xml
+RUN configure.sh
+COPY target/keystore.p12 /tmp/keystore.p12
+COPY target/futbolin-webapp.war /opt/ol/wlp/usr/servers/defaultServer/apps/futbolin-webapp.war
