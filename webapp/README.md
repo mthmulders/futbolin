@@ -18,6 +18,7 @@ This are the supported configuration settings.
 
 ## Development
 
+### On your machine
 For convenience, you can create a simple script, say **run.sh**, with the following content:
 
 ```sh
@@ -30,3 +31,29 @@ mvn generate-resources liberty:dev
 
 Replace `...` above with your actual values.
 The ones not listed above have sane defaults defined in the POM.
+
+Every change you make to the application will immediately be reloaded by OpenLiberty.
+
+### Inside a Docker container
+
+For convenience, you can create a simple script, say **run-docker.sh**, with the following content:
+
+```sh
+#!/usr/bin/env bash
+
+docker rm wa || true
+docker run \
+  -p 9080:9080 \
+  -p 9443:9443 \
+  --name wa \
+  -e OIDC_CLIENT_ID=... \
+  -e OIDC_CLIENT_SECRET=... \
+  -e CLIENT_KEYSTORE_FILE=/tmp/keystore.p12 \
+  -e CLIENT_KEYSTORE_PASSWORD=b4kBMqf6Y4pV \
+  mthmulders-docker-futbolin.bintray.io/futbolin-webapp
+```
+
+Replace `...` above with your actual values.
+
+Changes to the code base are **not** automatically reloaded.
+You need to run `mvn package -Pdocker` and restart the above script.
