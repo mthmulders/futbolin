@@ -158,9 +158,6 @@
                     <artifactId>dockerfile-maven-plugin</artifactId>
                     <version>1.4.13</version>
                     <configuration>
-                        <buildArgs>
-                            <WAR_FILE>${project.build.finalName}.war</WAR_FILE>
-                        </buildArgs>
                         <repository>mthmulders-docker-futbolin.bintray.io/${project.artifactId}</repository>
                     </configuration>
                     <executions>
