@@ -32,6 +32,13 @@ resource "oci_core_service_gateway" "futbolin" {
   }
 }
 
+# Configure a NAT Gateway 
+resource "oci_core_nat_gateway" "futbolin" {
+  compartment_id = var.project_compartment_ocid
+  vcn_id         = oci_core_vcn.futbolin.id
+  display_name   = "Futbolín NAT Gateway"
+}
+
 # Route traffic to the Internet over the Internet Gateway
 resource "oci_core_route_table" "loadbalancer-routing" {
   compartment_id = var.project_compartment_ocid
@@ -52,7 +59,7 @@ resource "oci_core_route_table" "worker-routing" {
   # https://docs.cloud.oracle.com/en-us/iaas/Content/knownissues.htm#sgw-route-rule-conflict
   # this means we cannot have connection to the Internet.
   route_rules {
-    network_entity_id = oci_core_internet_gateway.futbolin.id
+    network_entity_id = oci_core_nat_gateway.futbolin.id
     destination       = "0.0.0.0/0"
   }
 }
