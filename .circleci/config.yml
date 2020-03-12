@@ -29,6 +29,14 @@ jobs:
           key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
 
       - run:
+          name: Download dependencies and plugins
+          command: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
+
+      - run:
           name: Build software
           command: |
             mvn -P coverage \
