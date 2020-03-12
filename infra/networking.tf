@@ -59,11 +59,12 @@ resource "oci_core_route_table" "worker-routing" {
 
 # Configure a regional subnet for worker nodes
 resource "oci_core_subnet" "futbolin-worker-subnet" {
-  cidr_block     = var.workers-cidr
-  display_name   = "Futbolín Worker Subnet"
-  compartment_id = var.project_compartment_ocid
-  vcn_id         = oci_core_vcn.futbolin.id
-  route_table_id = oci_core_route_table.worker-routing.id
+  cidr_block                 = var.workers-cidr
+  display_name               = "Futbolín Worker Subnet"
+  compartment_id             = var.project_compartment_ocid
+  vcn_id                     = oci_core_vcn.futbolin.id
+  route_table_id             = oci_core_route_table.worker-routing.id
+  prohibit_public_ip_on_vnic = true
   security_list_ids = [
     oci_core_security_list.futbolin-workers.id
   ]
@@ -186,9 +187,9 @@ resource "oci_core_security_list" "futbolin-workers" {
     stateless   = true
   }
   ingress_security_rules {
-    source      = var.loadbalancers-cidr
-    protocol    = "6" # TCP
-    stateless   = true
+    source    = var.loadbalancers-cidr
+    protocol  = "6" # TCP
+    stateless = true
   }
 
   # -------------- #
@@ -247,7 +248,7 @@ resource "oci_core_security_list" "futbolin-workers" {
   }
   egress_security_rules {
     destination = "0.0.0.0/0"
-    protocol = "6" # TCP
+    protocol    = "6" # TCP
   }
 }
 
@@ -264,9 +265,9 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
     stateless   = true
   }
   ingress_security_rules {
-    source      = var.workers-cidr
-    protocol    = "6" # TCP
-    stateless   = true
+    source    = var.workers-cidr
+    protocol  = "6" # TCP
+    stateless = true
   }
 
   # This rule enables incoming public traffic to service load balancers.
