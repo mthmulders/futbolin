@@ -4,6 +4,9 @@
 # It creates a Highly Available Public Cluster in a Region with Three Availability Domains, Using a Regional Subnet.
 #
 
+variable "workers-cidr" { default = "10.0.10.0/24" }
+variable "loadbalancers-cidr" { default = "10.0.20.0/24" }
+
 # Configure the VCN for the Kubernetes worker nodes
 resource "oci_core_vcn" "futbolin" {
   cidr_block     = "10.0.0.0/16"
@@ -56,7 +59,7 @@ resource "oci_core_route_table" "worker-routing" {
 
 # Configure a regional subnet for worker nodes
 resource "oci_core_subnet" "futbolin-worker-subnet" {
-  cidr_block     = "10.0.10.0/24"
+  cidr_block     = var.workers-cidr
   display_name   = "Futbolín Worker Subnet"
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
@@ -68,7 +71,7 @@ resource "oci_core_subnet" "futbolin-worker-subnet" {
 
 # Configure a regional subnet for load balancers
 resource "oci_core_subnet" "futbolin-loadbalancer-subnet" {
-  cidr_block     = "10.0.20.0/24"
+  cidr_block     = var.loadbalancers-cidr
   display_name   = "Futbolín Load Balancer Subnet"
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
@@ -176,6 +179,18 @@ resource "oci_core_security_list" "futbolin-workers" {
     }
   }
 
+  # Stateless ingress and egress rules that allow all traffic between worker node subnets and load balancer subnets.
+  egress_security_rules {
+    destination = var.loadbalancers-cidr
+    protocol    = "6" # TCP
+    stateless   = true
+  }
+  ingress_security_rules {
+    source      = var.loadbalancers-cidr
+    protocol    = "6" # TCP
+    stateless   = true
+  }
+
   # -------------- #
   # OUTBOUND RULES #
   # -------------- #
@@ -241,6 +256,18 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
   display_name   = "Security List for Load Balancers"
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
+
+  # Stateless ingress and egress rules that allow all traffic between worker node subnets and load balancer subnets.
+  egress_security_rules {
+    destination = var.workers-cidr
+    protocol    = "6" # TCP
+    stateless   = true
+  }
+  ingress_security_rules {
+    source      = var.workers-cidr
+    protocol    = "6" # TCP
+    stateless   = true
+  }
 
   # This rule enables incoming public traffic to service load balancers.
   ingress_security_rules {
