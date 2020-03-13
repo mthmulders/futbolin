@@ -154,25 +154,20 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
   compartment_id = var.project_compartment_ocid
   vcn_id         = oci_core_vcn.futbolin.id
 
-  # Stateless ingress and egress rules that allow all traffic between worker node subnets and load balancer subnets.
-  egress_security_rules {
-    destination = var.workers-cidr
-    protocol    = "6" # TCP
-    stateless   = true
-  }
-  ingress_security_rules {
-    source    = var.workers-cidr
-    protocol  = "6" # TCP
-    stateless = true
-  }
+  # ------------- #
+  # INBOUND RULES #
+  # ------------- #
 
-  # This rule enables incoming public traffic to service load balancers.
   ingress_security_rules {
     protocol  = "6" # TCP
     source    = "0.0.0.0/0"
     stateless = true
   }
-  # This rule enables responses from a web application through the service load balancers.
+
+  # -------------- #
+  # OUTBOUND RULES #
+  # -------------- #
+
   egress_security_rules {
     protocol    = "6" # TCP
     destination = "0.0.0.0/0"
