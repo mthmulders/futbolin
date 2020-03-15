@@ -40,7 +40,15 @@ helm install nginx \
 ### Updating cert-manager
 * Ensure the local Helm chart repository cache is up to date with `helm repo update`
 * Upgrade cert-manager with the following command (replace with appropriate version number):
-```helm upgrade cert-manager \
+```sh
+helm upgrade cert-manager \
   --namespace cert-manager \
   --version v0.14 \
-  jetstack/cert-manager```
+  jetstack/cert-manager
+```
+
+### Configuring secrets
+Secrets are configured per application component.
+Edit webapp.yml in this directory and update the `Secret` resource with the appropriate values.
+Those values must be encoded using base64, e.g. using `echo -n 'mypassword' | base64` or `base64 -i myfile.p12`.
+Then (re-)apply the manifest using `kubectl apply -f webapp.yml`.

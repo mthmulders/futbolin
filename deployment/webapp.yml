@@ -22,6 +22,30 @@ spec:
           ports:
             - containerPort: 9080
             - containerPort: 9443
+          env:
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: webapp
+                  key: oid.client.id
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: webapp
+                  key: oid.client.secret
+            - name: CLIENT_KEYSTORE_FILE
+              value: /tmp/keystore.p12
+            - name: CLIENT_KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: webapp
+                  key: oid.keystore.password
+            - name: OIDC_RPHOSTANDPORT
+              value: https://futbolin.mulders.it/
+      volumes:
+      - name: client-keystore
+        secret:
+          secretName: webapp
       restartPolicy: Always
 
 ---
@@ -42,3 +66,19 @@ spec:
     targetPort: 9443
   selector:
     app: webapp
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webapp
+  namespace: futbolin
+type: Opaque
+data:
+  # OpenID Connect Client ID
+  oid.client.id: ""
+  # OpenID Connect Client Secret
+  oid.client.secret: ""
+  # OpenID Connect Client keystore password
+  oid.keystore.password: ""
