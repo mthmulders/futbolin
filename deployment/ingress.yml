@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: default
+  namespace: futbolin
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "https"
+spec:
+  rules:
+    - host: futbolin.mulders.it
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: webapp
+              servicePort: 9443
+  tls:
+  - secretName: letsencrypt-prod
+    hosts:
+      - futbolin.mulders.it
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  # Name is dictated by the Nginx ingress controller.
+  namespace: kube-system
+  name: nginx-nginx-ingress-controller
+data:
+  # See https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+  # for more options.
+  hide-headers: "X-Powered-By"
+  server-tokens: "false"
