@@ -4,6 +4,7 @@ import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mockrunner.mock.web.MockUserPrincipal;
 import org.assertj.core.api.WithAssertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -17,13 +18,20 @@ import java.io.IOException;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class EnhancedPrincipalFilterTest implements WithAssertions {
     private final FilterChain chain = mock(FilterChain.class);
     private final HttpServletResponse response = new MockHttpServletResponse();
     private final ArgumentCaptor<HttpServletRequest> requestCaptor = ArgumentCaptor.forClass(HttpServletRequest.class);
+    private final FutbolinPrincipalExtractor principalExtractor = mock(FutbolinPrincipalExtractor.class);
 
     private EnhancedPrincipalFilter filter = new EnhancedPrincipalFilter();
+
+    @BeforeEach
+    void setup() {
+        filter.extractor = principalExtractor;
+    }
 
     @Test
     void doFilter_withFutbolinPrincipal_shouldNotReplacePrincipal() throws IOException, ServletException {
@@ -50,6 +58,7 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
         var principal = new MockUserPrincipal(name);
         var request = new MockHttpServletRequest();
         request.setUserPrincipal(principal);
+        when(principalExtractor.extractFutbolinPrincipal()).thenReturn(FutbolinPrincipal.builder().build());
 
         filter.doFilter(request, response, chain);
 
@@ -60,21 +69,5 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
 
         var actualPrincipal = capturedRequest.getUserPrincipal();
         assertThat(actualPrincipal).isInstanceOf(FutbolinPrincipal.class);
-        assertThat(actualPrincipal.getName()).isEqualTo(name);
-    }
-
-    @Test
-    void doFilter_withAnotherPrincipal_shouldPreservePrincipalName() throws IOException, ServletException {
-        var principal = new MockUserPrincipal("dummy");
-        var request = new MockHttpServletRequest();
-        request.setUserPrincipal(principal);
-
-        filter.doFilter(request, response, chain);
-
-        verify(chain).doFilter(requestCaptor.capture(), eq(response));
-
-        var capturedRequest = requestCaptor.getValue();
-        var actualPrincipal = capturedRequest.getUserPrincipal();
-        assertThat(actualPrincipal.getName()).isEqualTo(principal.getName());
     }
 }
