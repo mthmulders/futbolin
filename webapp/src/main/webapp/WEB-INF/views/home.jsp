@@ -11,7 +11,10 @@
                     <p class="lead">Please <a href="/app/logon">log in</a> before using this system.</p>
                 </c:when>
                 <c:otherwise>
-                    <p class="lead">Some introductory text for ${pageContext.request.userPrincipal.name}.</p>
+                    <p class="lead">
+                        Some introductory text for ${pageContext.request.userPrincipal.name}.
+                        <a href="/app/logout">Log me out</a>.
+                    </p>
                 </c:otherwise>
             </c:choose>
         </div>

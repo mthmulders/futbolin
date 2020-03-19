@@ -2,6 +2,7 @@ package it.mulders.futbolin.webapp.security;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ import java.util.Map;
 @WebFilter(urlPatterns = "/app/*")
 public class EnhancedPrincipalFilter extends HttpFilter {
     private final transient Map<Principal, FutbolinPrincipal> userCache = new HashMap<>();
+
+    @Inject FutbolinPrincipalExtractor extractor;
 
     @Override
     public void init(final FilterConfig filterConfig) {
@@ -56,9 +59,7 @@ public class EnhancedPrincipalFilter extends HttpFilter {
     }
 
     private FutbolinPrincipal createFutbolinPrincipal(final Principal originalPrincipal) {
-        return FutbolinPrincipal.builder()
-                .name(originalPrincipal.getName())
-                .build();
+        return extractor.extractFutbolinPrincipal();
     }
 
     @Override
