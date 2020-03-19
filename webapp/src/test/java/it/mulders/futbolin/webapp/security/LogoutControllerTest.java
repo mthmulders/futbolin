@@ -13,7 +13,7 @@ class LogoutControllerTest implements WithAssertions {
     private LogoutController controller = new LogoutController();
 
     @Test
-    void should_logout_() throws ServletException {
+    void should_logout() throws ServletException {
         // Can't use MockRunner Servlet, it doesn't follow version 3.0+ of the Servlet Spec that describes the
         // logout() method on HttpServletRequest.
         var request = mock(HttpServletRequest.class);
