@@ -30,7 +30,7 @@ jobs:
 
       - run:
           name: Download dependencies and plugins
-          command: mvn dependency:go-offline
+          command: mvn dependency:go-offline -P coverage
       - save_cache:
           paths:
             - ~/.m2
