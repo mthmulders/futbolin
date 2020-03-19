@@ -66,6 +66,8 @@
         </application-bnd>
     </webApplication>
 
+    <socialLoginWebapp contextPath="/social" />
+
     <httpEndpoint host="*"
                   httpPort="${default.http.port}"
                   httpsPort="${default.https.port}"
