@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * OpenLiberty-based implementation of obtaining a {@link FutbolinPrincipal} instance.
@@ -33,7 +34,7 @@ public class LibertyFutbolinPrincipalExtractor implements FutbolinPrincipalExtra
 
     /** Describes how to get the {@link Claims profile claims} when running in OpenLiberty. */
     interface ClaimsSupplier {
-        Optional<Claims> findClaims(final Subject subject);
+        Optional<Claims> findClaims(final Set<Object> credentials);
     }
 
     /** Call to {@link WSSubject#getCallerSubject} can be replaced by using the protected constructor. */
@@ -58,16 +59,16 @@ public class LibertyFutbolinPrincipalExtractor implements FutbolinPrincipalExtra
     }
 
     private Optional<FutbolinPrincipal> toFutbolinPrincipal(final Subject subject) {
-        return claimsSupplier.findClaims(subject).map(this::toFutbolinPrincipal);
+        var credentials = subject.getPrivateCredentials();
+        return claimsSupplier.findClaims(credentials).map(this::toFutbolinPrincipal);
     }
 
     /**
      * Given a {@link Subject subject} find a set of {@link Claims claims} that describe the subject.
-     * @param subject The OpenLiberty subject that may have additional claims about the subject.
+     * @param credentials The OpenLiberty subject that may have additional claims about the subject.
      * @return The {@link Claims claims} that describe the subject.
      */
-    private static Optional<Claims> findClaims(final Subject subject) {
-        var credentials = subject.getPrivateCredentials();
+    private static Optional<Claims> findClaims(final Set<Object> credentials) {
         return credentials.stream()
                 .filter(UserProfile.class::isInstance)
                 .findFirst()
