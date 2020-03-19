@@ -57,3 +57,15 @@ Replace `...` above with your actual values.
 
 Changes to the code base are **not** automatically reloaded.
 You need to run `mvn package -Pdocker` and restart the above script.
+
+### Inside a Kubernetes environment
+Prepare a Kubernetes secret with the appropriate configuration values:
+```sh
+kubectl create secret generic webapp \
+    --namespace=futbolin \
+    --from-literal=oid.client.id=... \
+    --from-literal=oid.client.secret=... \
+    --from-literal=oid.keystore.password=b4kBMqf6Y4pV
+```
+
+Again, replace `...` above with your actual values.
