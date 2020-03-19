@@ -2,6 +2,7 @@ package it.mulders.futbolin.webapp.security;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.security.Principal;
 
@@ -11,6 +12,7 @@ import java.security.Principal;
  */
 @Builder
 @Getter
+@ToString(exclude = { "displayName", "email" })
 public class FutbolinPrincipal implements Principal {
     private final String id;
     private final String displayName;
