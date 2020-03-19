@@ -12,5 +12,12 @@ import java.security.Principal;
 @Builder
 @Getter
 public class FutbolinPrincipal implements Principal {
-    private final String name;
+    private final String id;
+    private final String displayName;
+    private final String email;
+
+    @Override
+    public String getName() {
+        return this.displayName;
+    }
 }

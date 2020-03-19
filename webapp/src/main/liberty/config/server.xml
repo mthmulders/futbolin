@@ -47,7 +47,7 @@
 
     <googleLogin clientId="${oidc.client.id}"
                  clientSecret="${oidc.client.secret}"
-                 scope="openid email"
+                 scope="openid profile email"
                  sslRef="google-client-ssl-context"
                  redirectToRPHostAndPort="${oidc.rpHostAndPort}"
                  useSystemPropertiesForHttpClientConnections="false">
