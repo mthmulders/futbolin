@@ -15,30 +15,28 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-<header>
-    <div class="container">
-        <nav class="navbar navbar-expand-md navbar-light fixed-navbar bg-light rounded">
-            <a class="navbar-brand" href="/">Futbolín</a>
-            <div class="collapse navbar-collapse justify-content-md-center">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/app/home">Dashboard</a></li>
-                </ul>
+<header class="container">
+    <nav class="navbar navbar-expand-md navbar-light fixed-navbar bg-light rounded">
+        <a class="navbar-brand" href="/">Futbolín</a>
+        <div class="collapse navbar-collapse justify-content-md-center">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link" href="/app/home">Dashboard</a></li>
+            </ul>
 
-                <c:if test="${pageContext.request.userPrincipal != null}">
-                    <div class="md-0">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userDropdownMenuButton">
-                                ${pageContext.request.userPrincipal.name}
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="userDropdownMenuButton">
-                                <a class="dropdown-item" href="/app/logout">Log off</a>
-                            </div>
+            <c:if test="${pageContext.request.userPrincipal != null}">
+                <div class="md-0">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userDropdownMenuButton">
+                            ${pageContext.request.userPrincipal.name}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="userDropdownMenuButton">
+                            <a class="dropdown-item" href="/app/logout">Log off</a>
                         </div>
                     </div>
-                </c:if>
-            </div>
-        </nav>
-    </div>
+                </div>
+            </c:if>
+        </div>
+    </nav>
 </header>
 
 <main role="main" class="flex-shrink-0">
