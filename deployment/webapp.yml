@@ -63,18 +63,3 @@ spec:
   selector:
     app: webapp
 
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: webapp
-  namespace: futbolin
-type: Opaque
-data:
-  # OpenID Connect Client ID
-  oid.client.id: ""
-  # OpenID Connect Client Secret
-  oid.client.secret: ""
-  # OpenID Connect Client keystore password
-  oid.keystore.password: ""
