@@ -1,4 +1,5 @@
 <%@ tag body-content="scriptless" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="title" required="true" type="java.lang.String" %>
 
 <!doctype html>
@@ -14,27 +15,39 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/app/home">Futbolín</a>
+<header class="container">
+    <nav class="navbar navbar-expand-md navbar-light fixed-navbar bg-light rounded">
+        <a class="navbar-brand" href="/">Futbolín</a>
+        <div class="collapse navbar-collapse justify-content-md-center">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link" href="/app/home">Dashboard</a></li>
+            </ul>
+
+            <c:if test="${pageContext.request.userPrincipal != null}">
+                <div class="md-0">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userDropdownMenuButton">
+                            ${pageContext.request.userPrincipal.name}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="userDropdownMenuButton">
+                            <a class="dropdown-item" href="/app/logout">Log off</a>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
         </div>
     </nav>
 </header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <jsp:doBody />
-    </div>
+<main role="main" class="container flex-shrink-0">
+    <jsp:doBody />
 </main>
 
-<footer class="footer py-3 mt-auto">
-    <div class="container">
-        <span class="text-muted">
-            &copy; 2019 &mdash; 2020 Maarten Mulders &mdash;
-            <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a> &mdash;
-            <a href="/app/static/privacy">Privacy Policy</a>
-        </span>
+<footer class="container footer py-3 mt-auto">
+    <div class="text-muted">
+        &copy; 2019 &mdash; 2020 Maarten Mulders &mdash;
+        <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a> &mdash;
+        <a href="/app/static/privacy">Privacy Policy</a>
     </div>
 </footer>
 

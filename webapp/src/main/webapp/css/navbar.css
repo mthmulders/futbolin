@@ -1,4 +1,4 @@
-main .container {
+main.container {
      padding-top: 60px;
 }
 
@@ -6,10 +6,9 @@ main .container {
     margin-bottom: 20px;
 }
 
-.fixed-top {
+.fixed-navbar {
     position: fixed;
     top: 0;
-    right: 0;
-    left: 0;
+    width: 1108px;
     z-index: 1030;
 }
