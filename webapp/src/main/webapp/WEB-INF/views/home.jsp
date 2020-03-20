@@ -5,16 +5,14 @@
 <layout:main title="Home">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <h1>Welcome to Futbolín</h1>
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal == null}">
+                    <h1>Welcome to Futbolín</h1>
                     <p class="lead">Please <a href="/app/logon">log in</a> before using this system.</p>
                 </c:when>
                 <c:otherwise>
-                    <p class="lead">
-                        Some introductory text for ${pageContext.request.userPrincipal.name}.
-                        <a href="/app/logout">Log me out</a>.
-                    </p>
+                    <h1>Welcome back to Futbolín</h1>
+                    <p class="lead">This is your personal dashboard.</p>
                 </c:otherwise>
             </c:choose>
         </div>
