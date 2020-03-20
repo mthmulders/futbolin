@@ -39,10 +39,8 @@
     </nav>
 </header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <jsp:doBody />
-    </div>
+<main role="main" class="container flex-shrink-0">
+    <jsp:doBody />
 </main>
 
 <footer class="container footer py-3 mt-auto">
