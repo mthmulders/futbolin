@@ -13,6 +13,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
+        <build.number>0</build.number>
+
         <lombok.version>1.18.12</lombok.version>
         <junit.jupiter.version>5.6.1</junit.jupiter.version>
     </properties>
@@ -165,6 +167,7 @@
                     <version>1.4.13</version>
                     <configuration>
                         <repository>mthmulders-docker-futbolin.bintray.io/${project.artifactId}</repository>
+                        <tag>${project.version}-b${build.number}</tag>
                     </configuration>
                     <executions>
                         <execution>
@@ -261,6 +264,17 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>circleci</id>
+            <activation>
+                <property>
+                    <name>env.CIRCLE_BUILD_NUM</name>
+                </property>
+            </activation>
+            <properties>
+                <build.number>${env.CIRCLE_BUILD_NUM}</build.number>
+            </properties>
         </profile>
     </profiles>
 </project>
