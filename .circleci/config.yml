@@ -6,6 +6,15 @@ workflows:
     jobs:
       - build:
           context: Bintray
+      - publish:
+          context: Bintray
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
   nightly:
     triggers:
       - schedule:
@@ -55,11 +64,6 @@ jobs:
             find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} ~/junit/ \;
           when: always
 
-      - run:
-          name: Publish containers
-          command: |
-            docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
-            mvn package dockerfile:push -P docker --pl webapp/
       - save_cache:
           paths:
             - ~/.m2
@@ -67,3 +71,19 @@ jobs:
           key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
       - store_test_results:
           path: ~/junit
+
+  publish:
+    docker:
+      - image: circleci/openjdk:11-jdk-sid-node
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: futbolin-{{ .Branch }}-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Publish containers
+          command: |
+            docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
+            mvn versions:set -DremoveSnapshot=true
+            mvn package dockerfile:push -P docker --pl webapp/
