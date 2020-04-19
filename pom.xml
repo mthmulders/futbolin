@@ -21,7 +21,6 @@
 
     <modules>
         <module>backend</module>
-        <module>rabbitmq</module>
         <module>webapp</module>
     </modules>
 
