@@ -21,6 +21,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 9443
+              name: https
           env:
             - name: OIDC_CLIENT_ID
               valueFrom:

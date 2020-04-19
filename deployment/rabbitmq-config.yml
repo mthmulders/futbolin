@@ -1,0 +1,7 @@
+extraPlugins: |
+  rabbitmq_jms_topic_exchange,
+rabbitmqPassword: ...
+rabbitmqErlangCookie: ...
+prometheus:
+  operator:
+    enabled: false
