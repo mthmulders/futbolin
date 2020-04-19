@@ -34,6 +34,8 @@ The ones not listed above have sane defaults defined in the POM.
 
 Every change you make to the application will immediately be reloaded by OpenLiberty.
 
+## Deployment
+
 ### Inside a Docker container
 
 For convenience, you can create a simple script, say **run-docker.sh**, with the following content:
