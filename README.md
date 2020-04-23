@@ -10,3 +10,21 @@ Futbolín is also the Spanish name of table football.
 Why Spanish?
 Because one of the inventors of table football was a Spaniard, [Alejandro Finisterre](https://en.wikipedia.org/wiki/Alejandro_Finisterre).
 
+## Documentation
+The [docs](docs/) folder contains some documentation on architecture and selected technology.
+The [deployment](deployment/) folder contains deployment instructions.
+
+## Technology
+Selected technology for this project may feel a bit like a hodgepodge.
+Since it's a pet project, I took the liberty to select whatever I felt like or whatever I am interested in to learn.
+It may or may not make sense :-).
+
+A selection of technologies currently in use or projected for future use:
+
+* Java 11
+* Java EE with JSR-371 and JMS
+* RabbitMQ
+* Quarkus
+
+## License
+Code, documentation, graphics in this repository are licensed under the [Apache License, version 2.0](./LICENSE). 
