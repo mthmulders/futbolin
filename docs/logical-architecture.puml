@@ -1,0 +1,53 @@
+@startuml
+
+header Futbolín architecture
+
+title Logical view
+
+package "External" {
+    component [Google] as google
+    () "Authentication page" as authp
+    authp - google
+}
+
+component [Web Application] as webapp
+() "Authentication endpoint" as authep
+() "User Views" as views
+note left of views
+Server-side rendered
+pages probably suffice.
+end note
+views - webapp
+webapp - authep
+
+authep .. authp
+
+queue "Message Bus" as bus
+
+webapp ..> bus : publish
+
+note left of bus
+Messages don't need
+to be human-readable.
+end note
+
+component [User Service] as usersrv
+component [Tournament Service] as tournamentsrv
+component [Match Service] as matchsrv
+
+database "User Store" as userdb
+database "Tournament Store" as matchdb
+database "Match Store" as tournamentdb
+
+bus ..> usersrv : consume
+usersrv ..> userdb : use
+bus ..> matchsrv : consume
+matchsrv ..> matchdb : use
+bus ..> tournamentsrv : consume
+tournamentsrv ..> tournamentdb : use
+
+' Alignment of pieces on this diagram
+google .[hidden]. webapp
+webapp .[hidden]. bus
+
+@enduml
