@@ -36,8 +36,8 @@ component [Tournament Service] as tournamentsrv
 component [Match Service] as matchsrv
 
 database "User Store" as userdb
-database "Tournament Store" as matchdb
-database "Match Store" as tournamentdb
+database "Tournament Store" as tournamentdb
+database "Match Store" as matchdb
 
 bus ..> usersrv : consume
 usersrv ..> userdb : use
