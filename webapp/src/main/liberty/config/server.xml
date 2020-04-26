@@ -5,6 +5,7 @@
         <feature>cdi-2.0</feature>
         <feature>jaxrs-2.1</feature>
         <feature>jsp-2.3</feature>
+        <feature>servlet-4.0</feature>
 
         <feature>appSecurity-3.0</feature>
         <feature>socialLogin-1.0</feature>
