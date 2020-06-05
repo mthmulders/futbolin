@@ -72,6 +72,19 @@
                     <serverXmlFile>src/main/liberty/server.xml</serverXmlFile>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+
+            </plugin>
         </plugins>
     </build>
 
@@ -171,6 +184,13 @@
                     <artifactId>jaxws-api</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- OpenLiberty uses Weld as CDI implementation so we use it for some integration tests as well -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.1.1.Final</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
