@@ -37,7 +37,7 @@ public class ConfigurationExposer {
     @Config("")
     public String exposeConfig(final InjectionPoint injectionPoint) {
         var config = injectionPoint.getAnnotated().getAnnotation(Config.class);
-        if (config == null) {
+        if (config != null) {
             return properties.getProperty(config.value());
         }
         log.warn("Could not inject value for config property {}", injectionPoint);
