@@ -13,7 +13,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <argLine></argLine>
         <build.number>0</build.number>
 
         <lombok.version>1.18.12</lombok.version>
@@ -139,9 +138,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
-                    <configuration>
-                        <argLine>@{argLine}</argLine>
-                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.junit.jupiter</groupId>
@@ -155,9 +151,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.22.2</version>
-                    <configuration>
-                        <argLine>@{argLine}</argLine>
-                    </configuration>
                     <executions>
                         <execution>
                             <goals>
