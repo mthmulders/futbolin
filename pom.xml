@@ -13,8 +13,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <argLine></argLine>
-
         <sonar.projectKey>mthmulders_futbolin</sonar.projectKey>
         <sonar.organization>mthmulders-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -157,9 +155,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
-                    <configuration>
-                        <argLine>@{argLine}</argLine>
-                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.junit.jupiter</groupId>
@@ -173,9 +168,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.22.2</version>
-                    <configuration>
-                        <argLine>@{argLine}</argLine>
-                    </configuration>
                     <executions>
                         <execution>
                             <goals>
