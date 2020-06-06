@@ -35,12 +35,24 @@ public class ConfigurationExposer {
 
     @Produces
     @Config("")
-    public String exposeConfig(final InjectionPoint injectionPoint) {
+    public String exposeConfigAsString(final InjectionPoint injectionPoint) {
         var config = injectionPoint.getAnnotated().getAnnotation(Config.class);
         if (config != null) {
             return properties.getProperty(config.value());
         }
         log.warn("Could not inject value for config property {}", injectionPoint);
+        return null;
+    }
+
+    @Produces
+    @Config("")
+    public Integer exposeConfigAsInteger(final InjectionPoint injectionPoint) {
+        var value = exposeConfigAsString(injectionPoint);
+        try {
+            return Integer.parseInt(value, 10);
+        } catch (final NumberFormatException nfe) {
+            log.warn("Value {} for injection point {} could not be converted to an Integer", value, injectionPoint);
+        }
         return null;
     }
 }

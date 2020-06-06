@@ -18,11 +18,19 @@ class ConfigurationExposerIT implements WithAssertions {
     static class Dummy {
         @Inject
         @Config("an.example")
-        private String existing;
+        private String existingString;
+
+        @Inject
+        @Config("an.example")
+        private int existingInteger;
 
         @Inject
         @Config("another.example")
         private String nonExisting;
+
+        @Inject
+        @Config("an.invalid.number")
+        private Integer notNumeric;
     }
 
     @BeforeAll
@@ -41,12 +49,22 @@ class ConfigurationExposerIT implements WithAssertions {
     }
 
     @Test
-    void should_inject_existing_values_from_property_file() {
-        assertThat(dummy.existing).isEqualTo("1");
+    void should_inject_string_value_from_property_file() {
+        assertThat(dummy.existingString).isEqualTo("1");
+    }
+
+    @Test
+    void should_inject_integer_value_from_property_file() {
+        assertThat(dummy.existingInteger).isEqualTo(1);
     }
 
     @Test
     void should_not_inject_non_existing_values_from_property_file() {
         assertThat(dummy.nonExisting).isNull();
+    }
+
+    @Test
+    void should_not_inject_non_numberic_value() {
+        assertThat(dummy.notNumeric).isNull();
     }
 }
