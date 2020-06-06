@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-public class ConfigurationExposerIT implements WithAssertions {
+class ConfigurationExposerIT implements WithAssertions {
     private static WeldContainer container;
     private static Dummy dummy;
 
@@ -41,12 +41,12 @@ public class ConfigurationExposerIT implements WithAssertions {
     }
 
     @Test
-    public void should_inject_existing_values_from_property_file() {
+    void should_inject_existing_values_from_property_file() {
         assertThat(dummy.existing).isEqualTo("1");
     }
 
     @Test
-    public void should_not_inject_non_existing_values_from_property_file() {
+    void should_not_inject_non_existing_values_from_property_file() {
         assertThat(dummy.nonExisting).isNull();
     }
 }
