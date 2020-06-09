@@ -27,6 +27,7 @@
 
     <modules>
         <module>backend</module>
+        <module>messages</module>
         <module>webapp</module>
     </modules>
 
@@ -257,6 +258,19 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>it.mulders.futbolin</groupId>
+                <artifactId>futbolin-messages</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>it.mulders.futbolin</groupId>
+                <artifactId>futbolin-messages</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
             </dependency>
 
             <dependency>

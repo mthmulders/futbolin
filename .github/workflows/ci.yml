@@ -2,9 +2,10 @@ name: CI build
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -34,6 +35,8 @@ jobs:
       - name: Test
         run: |
           mvn verify -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+          # Work-around until Maven 4 is out
+          mvn install -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8) --pl :futbolin-messages
         if: ${{ github.ref != 'refs/heads/main' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
