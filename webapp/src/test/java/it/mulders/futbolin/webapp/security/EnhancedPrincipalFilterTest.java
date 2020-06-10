@@ -26,7 +26,7 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
     private final ArgumentCaptor<HttpServletRequest> requestCaptor = ArgumentCaptor.forClass(HttpServletRequest.class);
     private final FutbolinPrincipalExtractor principalExtractor = mock(FutbolinPrincipalExtractor.class);
 
-    private EnhancedPrincipalFilter filter = new EnhancedPrincipalFilter();
+    private final EnhancedPrincipalFilter filter = new EnhancedPrincipalFilter();
 
     @BeforeEach
     void setup() {
@@ -36,7 +36,7 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
     @Test
     void doFilter_withFutbolinPrincipal_shouldNotReplacePrincipal() throws IOException, ServletException {
         var request = new MockHttpServletRequest();
-        request.setUserPrincipal(FutbolinPrincipal.builder().build());
+        request.setUserPrincipal(null);
 
         filter.doFilter(request, response, chain);
 
@@ -58,7 +58,7 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
         var principal = new MockUserPrincipal(name);
         var request = new MockHttpServletRequest();
         request.setUserPrincipal(principal);
-        when(principalExtractor.extractFutbolinPrincipal()).thenReturn(FutbolinPrincipal.builder().build());
+        when(principalExtractor.extractFutbolinPrincipal()).thenReturn(DefaultFutbolinUser.builder().build());
 
         filter.doFilter(request, response, chain);
 
@@ -68,6 +68,6 @@ class EnhancedPrincipalFilterTest implements WithAssertions {
         assertThat(capturedRequest).isNotEqualTo(request);
 
         var actualPrincipal = capturedRequest.getUserPrincipal();
-        assertThat(actualPrincipal).isInstanceOf(FutbolinPrincipal.class);
+        assertThat(actualPrincipal).isInstanceOf(DefaultFutbolinUser.class);
     }
 }

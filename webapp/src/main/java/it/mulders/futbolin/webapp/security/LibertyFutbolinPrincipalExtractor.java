@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * OpenLiberty-based implementation of obtaining a {@link FutbolinPrincipal} instance.
+ * OpenLiberty-based implementation of obtaining a {@link FutbolinUser} instance.
  *
  * There are a few interactions with hard-to-replace OpenLiberty APIs: {@link WSSubject#getCallerSubject()} as well
  * as the {@link UserProfile} class. Those are captured in dedicated interfaces ({@link CallerSubjectSupplier} and
@@ -43,12 +43,15 @@ public class LibertyFutbolinPrincipalExtractor implements FutbolinPrincipalExtra
     /** Interactions with the {@link UserProfile} class (which has dependencies on non-public modules) can be replaced by using the protected constructor. */
     private final ClaimsSupplier claimsSupplier;
 
+    /**
+     * Default constructor - not used in tests, but used at runtime.
+     */
     public LibertyFutbolinPrincipalExtractor() {
         this(WSSubject::getCallerSubject, LibertyFutbolinPrincipalExtractor::findClaims);
     }
 
     @Override
-    public FutbolinPrincipal extractFutbolinPrincipal() {
+    public FutbolinUser extractFutbolinPrincipal() {
         try {
             var subject = this.callerSubjectSupplier.getCallerSubject();
             return toFutbolinPrincipal(subject).orElse(null);
@@ -58,7 +61,7 @@ public class LibertyFutbolinPrincipalExtractor implements FutbolinPrincipalExtra
         return null;
     }
 
-    private Optional<FutbolinPrincipal> toFutbolinPrincipal(final Subject subject) {
+    private Optional<FutbolinUser> toFutbolinPrincipal(final Subject subject) {
         var credentials = subject.getPrivateCredentials();
         return claimsSupplier.findClaims(credentials).map(this::toFutbolinPrincipal);
     }
@@ -76,12 +79,12 @@ public class LibertyFutbolinPrincipalExtractor implements FutbolinPrincipalExtra
                 .map(UserProfile::getClaims);
     }
 
-    private FutbolinPrincipal toFutbolinPrincipal(final Claims claims) {
+    private FutbolinUser toFutbolinPrincipal(final Claims claims) {
         var id = claims.getClaim("sub", String.class);
         var displayName = claims.getClaim("name", String.class);
         var email = claims.getClaim("email", String.class);
 
-        return FutbolinPrincipal.builder()
+        return DefaultFutbolinUser.builder()
                 .id(id)
                 .displayName(displayName)
                 .email(email)

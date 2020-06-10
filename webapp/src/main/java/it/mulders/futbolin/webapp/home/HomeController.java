@@ -1,5 +1,6 @@
 package it.mulders.futbolin.webapp.home;
 
+import it.mulders.futbolin.webapp.security.FutbolinUser;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import javax.mvc.View;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 
 import static lombok.AccessLevel.PACKAGE;
 
@@ -28,9 +31,14 @@ public class HomeController {
     @GET
     @Produces("text/html; charset=UTF-8")
     @View("home.jsp")
-    public void show() {
-        model.put("teams", overviewService.getMyTeams());
-        model.put("tournaments", overviewService.getMyTournaments());
-        model.put("matches", overviewService.getMyMatches());
+    public void show(@Context SecurityContext context) {
+        if (context.getUserPrincipal() != null) {
+            var userId = ((FutbolinUser) context.getUserPrincipal()).getId();
+            log.info("Fetching overview for user {}", userId);
+
+            model.put("teams", overviewService.getMyTeams());
+            model.put("tournaments", overviewService.getMyTournaments());
+            model.put("matches", overviewService.getMyMatches());
+        }
     }
 }

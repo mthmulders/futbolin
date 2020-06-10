@@ -19,6 +19,6 @@ public class LogonController {
     @GET
     @View("redirect:/home")
     public void login() {
-        // Nothing to do. The rules in web.xml will trigger the login flow.
+        // Nothing to do. The rules in web.xml have triggered the login flow.
     }
 }
