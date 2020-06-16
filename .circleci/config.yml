@@ -12,8 +12,9 @@ workflows:
             - build
           filters:
             tags:
-              only:
-                - /.*/
+              only: /^v.*/
+            branches:
+              ignore: /.*/
 
   nightly:
     triggers:
@@ -85,5 +86,4 @@ jobs:
           name: Publish containers
           command: |
             docker login -u mthmulders -p ${BINTRAY_API_KEY} mthmulders-docker-futbolin.bintray.io
-            mvn versions:set -DremoveSnapshot=true
-            mvn package dockerfile:push -P docker --pl webapp/
+            mvn package dockerfile:push -P docker
