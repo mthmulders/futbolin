@@ -188,6 +188,17 @@
                                 <goal>push</goal>
                             </goals>
                         </execution>
+                        <execution>
+                            <id>update-latest</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <repository>mthmulders-docker-futbolin.bintray.io/${project.artifactId}</repository>
+                                <tag>latest</tag>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
             </plugins>
