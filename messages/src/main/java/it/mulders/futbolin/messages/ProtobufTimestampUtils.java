@@ -6,6 +6,9 @@ import com.google.protobuf.Timestamp;
  * Utility methods for working with Protocol Buffer {@link Timestamp} values.
  */
 public class ProtobufTimestampUtils {
+    private ProtobufTimestampUtils() {
+    }
+
     /**
      * Creates a {@link Timestamp} instance for the current timestamp
      * {@see System#currentTimeMillis}

@@ -32,4 +32,10 @@ public class MockSecurityContext implements SecurityContext {
                 .userPrincipal(principal)
                 .build();
     }
+
+    public static SecurityContext loggedInWith(final FutbolinUser user) {
+        return MockSecurityContext.builder()
+                .userPrincipal(user)
+                .build();
+    }
 }

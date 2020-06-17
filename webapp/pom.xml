@@ -147,6 +147,10 @@
             <version>1.5.0</version>
         </dependency>
         <dependency>
+            <groupId>it.mulders.futbolin</groupId>
+            <artifactId>futbolin-messages</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.ibm.websphere.appserver.api</groupId>
             <artifactId>com.ibm.websphere.appserver.api.basics</artifactId>
             <version>1.4.52</version>
@@ -177,6 +181,11 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.mulders.futbolin</groupId>
+            <artifactId>futbolin-messages</artifactId>
+            <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>com.mockrunner</groupId>
