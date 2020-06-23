@@ -122,6 +122,66 @@ resource "oci_core_security_list" "futbolin-workers" {
     }
   }
 
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "10.0.20.0/24"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 10256
+      min = 10256
+    }
+  }
+
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "10.0.20.0/24"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 30650
+      min = 30650
+    }
+  }
+
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "10.0.20.0/24"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 31692
+      min = 31692
+    }
+  }
+
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "10.0.20.0/24"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 31782
+      min = 31782
+    }
+  }
+
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "10.0.20.0/24"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 32285
+      min = 32285
+    }
+  }
+
   # -------------- #
   # OUTBOUND RULES #
   # -------------- #
@@ -164,6 +224,30 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
     stateless = true
   }
 
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 443
+      min = 443
+    }
+  }
+
+  ingress_security_rules {
+    protocol    = "6"
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    tcp_options {
+      max = 80
+      min = 80
+    }
+  }
+
   # -------------- #
   # OUTBOUND RULES #
   # -------------- #
@@ -172,5 +256,41 @@ resource "oci_core_security_list" "futbolin-loadbalancers" {
     protocol    = "6" # TCP
     destination = "0.0.0.0/0"
     stateless   = true
+  }
+
+  egress_security_rules {
+    destination      = "10.0.10.0/24"
+    destination_type = "CIDR_BLOCK"
+    protocol         = "6"
+    stateless        = false
+
+    tcp_options {
+      max = 10256
+      min = 10256
+    }
+  }
+
+  egress_security_rules {
+    destination      = "10.0.10.0/24"
+    destination_type = "CIDR_BLOCK"
+    protocol         = "6"
+    stateless        = false
+
+    tcp_options {
+      max = 31692
+      min = 31692
+    }
+  }
+
+  egress_security_rules {
+    destination      = "10.0.10.0/24"
+    destination_type = "CIDR_BLOCK"
+    protocol         = "6"
+    stateless        = false
+
+    tcp_options {
+      max = 30650
+      min = 30650
+    }
   }
 }
