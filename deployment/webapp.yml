@@ -26,26 +26,26 @@ spec:
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: webapp
-                  key: oid.client.id
+                  name: webapp-oidc
+                  key: oidc.client.id
             - name: OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: webapp
-                  key: oid.client.secret
+                  name: webapp-oidc
+                  key: oidc.client.secret
             - name: CLIENT_KEYSTORE_FILE
               value: /tmp/keystore.p12
             - name: CLIENT_KEYSTORE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: webapp
-                  key: oid.keystore.password
+                  name: webapp-oidc
+                  key: oidc.keystore.password
             - name: OIDC_RPHOSTANDPORT
               value: https://futbolin.mulders.it/
       volumes:
       - name: client-keystore
         secret:
-          secretName: webapp
+          secretName: webapp-oidc
       restartPolicy: Always
 
 ---
