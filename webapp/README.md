@@ -61,7 +61,7 @@ Changes to the code base are **not** automatically reloaded.
 You need to run `mvn package -Pdocker` and restart the above script.
 
 ### Inside a Kubernetes environment
-Prepare a Kubernetes secret with the appropriate configuration values:
+Prepare a Kubernetes secret with the configuration values for OpenID Connect integration:
 ```sh
 kubectl create secret generic webapp-oidc \
     --namespace=futbolin \
@@ -71,3 +71,19 @@ kubectl create secret generic webapp-oidc \
 ```
 
 Again, replace `...` above with your actual values.
+
+Prepare another Kubernetes secret with the other configuration values.
+This configuration is stored in a standard Java properties file:
+```properties
+rabbitmq.host=
+rabbitmq.port=
+rabbitmq.user=
+rabbitmq.password=
+```
+
+Store this file in a secret like so
+```sh
+kubectl create secret generic webapp-config \
+    --namespace=futbolin \
+    --from-file=./path/to/application/properties
+```
