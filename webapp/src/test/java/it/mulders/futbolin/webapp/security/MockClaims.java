@@ -32,6 +32,10 @@ public class MockClaims implements Claims {
             case "email": return (T) email;
             case "name": return (T) name;
             case "sub": return (T) subject;
+            //missing default case
+            default:
+                 // add default case
+                break;
         }
 
         throw new UnsupportedOperationException();
