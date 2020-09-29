@@ -11,3 +11,6 @@ updates:
     versions:
     - "> 3.3.3"
     - "< 3.4"
+  - dependency-name: javax.mvc-api
+    versions:
+    - "1.0-pr"
