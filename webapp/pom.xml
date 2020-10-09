@@ -66,7 +66,7 @@
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>3.2.4</version>
                 <configuration>
                     <libertyRuntimeVersion>20.0.0.10</libertyRuntimeVersion>
                     <serverXmlFile>src/main/liberty/server.xml</serverXmlFile>
@@ -152,7 +152,7 @@
         <dependency>
             <groupId>com.mockrunner</groupId>
             <artifactId>mockrunner-servlet</artifactId>
-            <version>2.0.4</version>
+            <version>2.0.6</version>
             <scope>test</scope>
         </dependency>
         <!-- Tied to the version of OpenLiberty that we use -->
