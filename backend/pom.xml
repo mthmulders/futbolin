@@ -13,7 +13,7 @@
     <name>Futbolín :: Backend</name>
 
     <properties>
-        <quarkus.version>1.8.2.Final</quarkus.version>
+        <quarkus.version>1.8.3.Final</quarkus.version>
     </properties>
 
     <build>
