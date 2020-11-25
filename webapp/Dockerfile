@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:20.0.0.10-kernel-java11-openj9-ubi
+FROM openliberty/open-liberty:20.0.0.12-kernel-slim-java11-openj9
 
 COPY src/main/liberty/config/server.xml /opt/ol/wlp/usr/servers/defaultServer/server.xml
 RUN configure.sh
