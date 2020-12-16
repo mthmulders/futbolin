@@ -13,7 +13,7 @@
     <name>Futbolín :: Web App</name>
 
     <properties>
-        <krazo.version>1.0.0</krazo.version>
+        <krazo.version>1.1.0</krazo.version>
         <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
         <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
 
@@ -89,9 +89,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.mvc</groupId>
-            <artifactId>javax.mvc-api</artifactId>
-            <version>1.0.0</version>
+            <groupId>jakarta.mvc</groupId>
+            <artifactId>jakarta.mvc-api</artifactId>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
