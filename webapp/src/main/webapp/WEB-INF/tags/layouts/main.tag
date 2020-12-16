@@ -51,8 +51,8 @@
     </div>
 </footer>
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.4.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/popper.js/1.14.3/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/popper.js/1.16.0/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
 </body>
 
