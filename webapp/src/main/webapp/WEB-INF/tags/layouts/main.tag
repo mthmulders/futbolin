@@ -45,7 +45,7 @@
 
 <footer class="container footer py-3 mt-auto">
     <div class="text-muted">
-        &copy; 2019 &mdash; 2020 Maarten Mulders &mdash;
+        &copy; 2019 &mdash; 2021 Maarten Mulders &mdash;
         <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a> &mdash;
         <a href="/app/static/privacy">Privacy Policy</a>
     </div>
