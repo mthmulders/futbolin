@@ -1,13 +1,13 @@
 package it.mulders.futbolin.webapp.content;
 
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.core.Configuration;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.krazo.engine.JspViewEngine;
 import org.eclipse.krazo.engine.ViewEngineContextImpl;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.servlet.ServletContext;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Context;
 
 import java.net.MalformedURLException;
