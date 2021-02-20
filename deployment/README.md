@@ -16,6 +16,7 @@ Following [this guide](https://medium.com/oracledevs/secure-your-kubernetes-serv
 
 * Add the Helm repository that contains cert-manager with `helm repo add jetstack https://charts.jetstack.io`.
 * Add the Helm repository that contains nginx with `helm repo add stable https://charts.helm.sh/stable`.
+* Add the Helm repository that contains RabbitMQ with `helm repo add bitnami https://charts.bitnami.com/bitnami`.
 * Update the Helm repositories with `helm repo update`.
 * Install [cert-manager](https://cert-manager.readthedocs.io/en/latest/index.html) with
 ```sh
@@ -55,15 +56,15 @@ helm install nginx \
 
 ## Deploy RabbitMQ
 * Update the Helm repositories with `helm repo update`.
-* Edit rabbitmq-config.yml and fill appropriate values for `rabbitmqPassword` and `rabbitmqErlangCookie`.
-  * `rabbitmqPassword` is the password for the RabbitMQ administrative account. The username is `gues`.
-  * `rabbitmqErlangCookie` is an [Erlang cookie](https://www.rabbitmq.com/clustering.html#erlang-cookie), a shared secret for nodes to be able to communicate with each other. 
+* Edit rabbitmq-config.yml and fill appropriate values for `auth.password` and `auth.erlangCookie`.
+  * `password` is the password for the RabbitMQ administrative account. The username is `user`.
+  * `erlangCookie` is an [Erlang cookie](https://www.rabbitmq.com/clustering.html#erlang-cookie), a shared secret for nodes to be able to communicate with each other. 
 * Deploy a RabbitMQ cluster using the stable [Helm chart](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha):
 ```sh
 helm install rabbitmq \
   -f rabbitmq-config.yml \
   --namespace rabbitmq \
-  stable/rabbitmq-ha
+  bitnami/rabbitmq
 ```
 
 To show the status of the deployment, issue `helm status rabbitmq --namespace rabbitmq`.
