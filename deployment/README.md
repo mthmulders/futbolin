@@ -69,10 +69,10 @@ helm install rabbitmq \
 
 To show the status of the deployment, issue `helm status rabbitmq --namespace rabbitmq`.
 
-See [the docs](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) for additional configuration options.
+See [the docs](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq) for additional configuration options.
 To show information about the deployed release, issue `helm status rabbitmq`.
 
-To upgrade RabbitMQ, read [the upgrade guide](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha#upgrading-the-chart).
+To upgrade RabbitMQ, read [the upgrade guide](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq#upgrading).
 
 ## Configuring secrets
 Secrets are configured per application component.
