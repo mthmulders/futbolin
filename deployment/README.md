@@ -15,7 +15,7 @@ You should see one pod.
 Following [this guide](https://medium.com/oracledevs/secure-your-kubernetes-services-using-cert-manager-nginx-ingress-and-lets-encrypt-888c8b996260).
 
 * Add the Helm repository that contains cert-manager with `helm repo add jetstack https://charts.jetstack.io`.
-* Add the Helm repository that contains nginx with `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`.
+* Add the Helm repository that contains nginx with `helm repo add stable https://charts.helm.sh/stable`.
 * Update the Helm repositories with `helm repo update`.
 * Install [cert-manager](https://cert-manager.readthedocs.io/en/latest/index.html) with
 ```sh
