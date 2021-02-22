@@ -9,6 +9,7 @@ terraform {
       version = "4.14.0"
     }
   }
+  required_version = ">= 0.13"
 }
 
 variable "user_ocid" {}                # OCID of your tenancy.
