@@ -1,8 +1,17 @@
 terraform {
   required_providers {
-    kubernetes = "~> 2.0.2"
-    local = "~> 2.1.0"
-    oci = "~> 4.14.0"
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0.2"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.1.0"
+    }
+    oci = {
+      source  = "hashicorp/oci"
+      version = "~> 4.14.0"
+    }
   }
 }
 
