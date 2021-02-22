@@ -12,14 +12,15 @@ terraform {
   required_version = ">= 0.14"
 }
 
-variable "user_ocid" {}            # OCID of your tenancy.
-variable "tenancy_ocid" {}         # OCID of the user calling the API.
-variable "compartment_ocid" {}     # OCID of your Comparment.
-variable "fingerprint" {}          # Fingerprint for the key pair being used.
-variable "private_key_path" {}     # The path (including filename) of the private key stored on your computer.
-variable "private_key_password" {} # Passphrase used for the key, if it is encrypted.
-variable "region" {}               # An Oracle Cloud Infrastructure region.
-variable "ssh_public_key_path" {}  # Path to public SSH key for remote access to the instances in the Node Pool.
+variable "user_ocid" {}               # OCID of your tenancy.
+variable "tenancy_ocid" {}            # OCID of the user calling the API.
+variable "compartment_ocid" {}        # OCID of your Comparment.
+variable "fingerprint" {}             # Fingerprint for the key pair being used.
+variable "private_key_path" {}        # The path (including filename) of the private key stored on your computer.
+variable "private_key_password" {}    # Passphrase used for the key, if it is encrypted.
+variable "region" {}                  # An Oracle Cloud Infrastructure region.
+variable "ssh_public_key_path" {}     # Path to public SSH key for remote access to the instances in the Node Pool.
+variable "database_admin_password" {} # Database administrator password
 
 variable "kubernetes_version" { default = "v1.19.7" }
 variable "oci_services_region" { default = "fra" }
