@@ -1,18 +1,15 @@
 terraform {
   required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.0.2"
-    }
     local = {
       source  = "hashicorp/local"
-      version = "~> 2.1.0"
+      version = "~> 1.4"
     }
     oci = {
       source  = "hashicorp/oci"
-      version = "~> 4.14.0"
+      version = "~> 3.56"
     }
   }
+  required_version = ">= 0.14"
 }
 
 variable "user_ocid" {}                # OCID of your tenancy.
