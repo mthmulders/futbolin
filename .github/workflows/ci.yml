@@ -30,8 +30,10 @@ jobs:
         with:
           java-version: 15
 
-      - name: Build
+      - name: Test
         run: mvn verify -e -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
 
+      - name: Build Docker containers
+        run: mvn package -P docker -Dmaven.test.skip=true -Dsha1=$(git rev-parse HEAD | cut -c1-8)
