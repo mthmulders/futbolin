@@ -23,7 +23,7 @@ jobs:
           path: ~/.m2/repository
           key: futbolin-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            columbia-
+            futbolin-
 
       - name: Set up JDK
         uses: actions/setup-java@v1
