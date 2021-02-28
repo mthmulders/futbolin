@@ -31,7 +31,10 @@ jobs:
           java-version: 15
 
       - name: Test
-        run: mvn verify -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+        run: |
+          mvn verify -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+          # Work-around until Maven 4 is out
+          mvn install -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8) --pl :futbolin-messages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
 
