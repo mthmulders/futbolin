@@ -19,6 +19,8 @@
         <sonar.java.source>11</sonar.java.source>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
+        <sha1>latest</sha1>
+
         <lombok.version>1.18.18</lombok.version>
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
     </properties>
@@ -187,7 +189,7 @@
                     <artifactId>dockerfile-maven-plugin</artifactId>
                     <version>1.4.13</version>
                     <configuration>
-                        <repository>mthmulders-docker-futbolin.bintray.io/${project.artifactId}</repository>
+                        <repository>eu-frankfurt-1.ocir.io/frwqejk9in9h/futbolin/${project.artifactId}</repository>
                         <tag>${project.version}</tag>
                     </configuration>
                     <executions>
@@ -206,13 +208,23 @@
                             </goals>
                         </execution>
                         <execution>
+                            <id>tag-latest</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <tag>latest</tag>
+                            </configuration>
+                        </execution>
+                        <execution>
                             <id>update-latest</id>
                             <phase>deploy</phase>
                             <goals>
                                 <goal>push</goal>
                             </goals>
                             <configuration>
-                                <repository>mthmulders-docker-futbolin.bintray.io/${project.artifactId}</repository>
+                                <repository>eu-frankfurt-1.ocir.io/frwqejk9in9h/futbolin/${project.artifactId}</repository>
                                 <tag>latest</tag>
                             </configuration>
                         </execution>

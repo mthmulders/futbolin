@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: mthmulders-docker-futbolin.bintray.io/futbolin-webapp
+`         image: fra.ocir.io/frwqejk9in9h/futbolin/futbolin-webapp
           imagePullPolicy: Always
           ports:
             - containerPort: 9443

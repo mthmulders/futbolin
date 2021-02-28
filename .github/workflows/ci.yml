@@ -23,7 +23,7 @@ jobs:
           path: ~/.m2/repository
           key: futbolin-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            columbia-
+            futbolin-
 
       - name: Set up JDK
         uses: actions/setup-java@v1
@@ -36,4 +36,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
 
       - name: Build Docker containers
-        run: mvn package -B -V -P docker -Dmaven.test.skip=true -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+        run: mvn package -B -V -P docker -Dmaven.test.skip -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+
+      - name: Authenticate with container registry
+        run: echo $DOCKER_PASSWORD | docker login eu-frankfurt-1.ocir.io -u $DOCKER_LOGIN --password-stdin
+        env:
+          DOCKER_LOGIN: ${{ secrets.DOCKER_LOGIN }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish Docker containers
+        run: mvn deploy -B -V -P docker -Dsha1=$(git rev-parse HEAD | cut -c1-8) -Dmaven.deploy.skip -Dmaven.test.skip
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Test
+        run: |
+          echo Running a test job
