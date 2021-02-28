@@ -1,0 +1,44 @@
+name: SonarCloud analysis
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  analyse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Cache ~/.m2/repository
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.m2/repository
+          key: futbolin-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            columbia-
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: futbolin-sonar
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+
+      - name: Analyse
+        run: mvn verify -Pcoverage -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
