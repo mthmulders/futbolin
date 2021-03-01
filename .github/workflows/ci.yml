@@ -31,7 +31,8 @@ jobs:
           java-version: 15
 
       - name: Test
-        run: mvn verify -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
+        run: |
+          mvn verify -B -V -Dsha1=$(git rev-parse HEAD | cut -c1-8)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
 

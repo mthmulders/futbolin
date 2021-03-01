@@ -133,12 +133,12 @@
                                     <!-- checks the dependencies transitively and fails if any class of any dependency
                                          is having its bytecode version higher than the one specified -->
                                     <enforceBytecodeVersion>
-                                        <maxJdkVersion>11</maxJdkVersion>
+                                        <maxJdkVersion>${maven.compiler.release}</maxJdkVersion>
                                     </enforceBytecodeVersion>
 
                                     <!-- enforces the JDK version -->
                                     <requireJavaVersion>
-                                        <version>11</version>
+                                        <version>${maven.compiler.release}</version>
                                     </requireJavaVersion>
 
                                     <!-- enforces the Maven version -->
@@ -148,21 +148,7 @@
                                 </rules>
                             </configuration>
                         </execution>
-                        <execution>
-                            <id>enforce-dependency-convergence</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <dependencyConvergence />
-                                </rules>
-                            </configuration>
-                        </execution>
                     </executions>
-                    <configuration>
-                        <fail>true</fail>
-                    </configuration>
                 </plugin>
 
                 <plugin>
@@ -179,9 +165,53 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.8.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.9.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.openliberty.tools</groupId>
+                    <artifactId>liberty-maven-plugin</artifactId>
+                    <version>3.3.4</version>
                 </plugin>
 
                 <plugin>
