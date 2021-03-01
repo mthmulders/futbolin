@@ -13,7 +13,7 @@
     <name>Futbolín :: Web App</name>
 
     <properties>
-        <krazo.version>1.1.0</krazo.version>
+        <krazo.version>2.0.0</krazo.version>
         <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
         <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
 
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>jakarta.mvc</groupId>
             <artifactId>jakarta.mvc-api</artifactId>
-            <version>1.1.0</version>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
@@ -161,6 +161,10 @@
             <version>3.3.3</version>
             <scope>test</scope>
             <exclusions>
+                <exclusion>
+                    <groupId>jakarta.ws.rs</groupId>
+                    <artifactId>jakarta.ws.rs-api</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>com.sun.xml.messaging.saaj</groupId>
                     <artifactId>saaj-impl</artifactId>

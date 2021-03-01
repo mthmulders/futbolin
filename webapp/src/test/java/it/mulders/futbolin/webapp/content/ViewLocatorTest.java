@@ -1,10 +1,9 @@
 package it.mulders.futbolin.webapp.content;
 
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.core.Configuration;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
-
-import javax.servlet.ServletContext;
-import javax.ws.rs.core.Configuration;
 
 import java.net.MalformedURLException;
 import java.net.URL;
