@@ -14,6 +14,9 @@
 
     <properties>
         <krazo.version>1.1.0</krazo.version>
+
+        <testcontainers.version>1.15.2</testcontainers.version>
+
         <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
         <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
 
@@ -170,6 +173,31 @@
                     <artifactId>jaxws-api</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- OpenLiberty uses Weld as CDI implementation so we use it for some integration tests as well -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.1.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.rnorth.visible-assertions</groupId>
+                    <artifactId>visible-assertions</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
