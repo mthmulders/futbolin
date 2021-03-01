@@ -1,7 +1,8 @@
-extraPlugins: |
-  rabbitmq_jms_topic_exchange,
-rabbitmqPassword: ...
-rabbitmqErlangCookie: ...
-prometheus:
-  operator:
-    enabled: false
+extraPlugins: rabbitmq_jms_topic_exchange, rabbitmq_amqp1_0
+auth:
+  username: user
+  password:
+  erlangCookie:
+persistence:
+  size: 2Gi
+replicaCount: 1
