@@ -25,10 +25,10 @@ helm install cert-manager \
   --set ingressShim.defaultIssuerName=letsencrypt-staging \
   --set ingressShim.defaultIssuerKind=ClusterIssuer \
   --set webhook.enabled=false \
-  --version v0.13 \
+  --set installCRDs=true \
+  --version v1.2 \
   jetstack/cert-manager
 ```
-* Install the Custom Resource Definitions for cert-manager with `kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/v0.14.0/deploy/manifests/00-crds.yaml`
 * Create the Let's Encrypt _Staging_ issuer with `kubectl apply -f letsencrypt-staging.yml`.
 This issuer is used to verify everything works.
 If it does, we can create a new issuer for obtaining _real_ certificates with `kubectl apply -f letsencrypt-prod.yml`.
@@ -40,7 +40,7 @@ If it does, we can create a new issuer for obtaining _real_ certificates with `k
 helm repo update
 helm upgrade cert-manager \
   --namespace cert-manager \
-  --version v0.14 \
+  --version v1.2 \
   jetstack/cert-manager
 ```
 
