@@ -22,7 +22,7 @@ variable "region" {}                   # An Oracle Cloud Infrastructure region.
 variable "project_compartment_ocid" {} # Comparment inside Oracle Cloud where all resources will be created.
 variable "ssh_public_key" {}           # Public SSH key for remote access to the instances in the Node Pool.
 
-variable "kubernetes_version" { default = "v1.18.10" }
+variable "kubernetes_version" { default = "v1.19.7" }
 variable "oci_services_region" { default = "fra" }
 
 # Configure the Oracle Cloud Infrastructure provider
