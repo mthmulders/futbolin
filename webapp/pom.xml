@@ -15,7 +15,7 @@
     <properties>
         <krazo.version>1.1.0</krazo.version>
 
-        <testcontainers.version>1.15.2</testcontainers.version>
+        <testcontainers.version>1.15.3</testcontainers.version>
 
         <client.truststore>${project.build.directory}/keystore.p12</client.truststore>
         <client.truststore.password>b4kBMqf6Y4pV</client.truststore.password>
