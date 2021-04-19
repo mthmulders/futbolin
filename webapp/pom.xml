@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.ibm.websphere.appserver.api</groupId>
             <artifactId>com.ibm.websphere.appserver.api.basics</artifactId>
-            <version>1.4.50</version>
+            <version>1.4.51</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
