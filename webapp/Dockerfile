@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:21.0.0.3-kernel-slim-java11-openj9-ubi
+FROM openliberty/open-liberty:21.0.0.4-kernel-slim-java11-openj9-ubi
 
 COPY src/main/liberty/config/server.xml /opt/ol/wlp/usr/servers/defaultServer/server.xml
 RUN features.sh
