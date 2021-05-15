@@ -1,0 +1,48 @@
+repositories:
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: stable
+    url: https://charts.helm.sh/stable
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: dapr
+    url: https://dapr.github.io/helm-charts/
+
+releases:
+  - name: cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    chart: jetstack/cert-manager
+    version: v1.2.0
+    values:
+      - ingressShim.defaultIssuerName: letsencrypt-prod
+      - ingressShim.defaultIssuerKind: ClusterIssuer
+      - webhook.enabled: false
+      - installCRDs: true
+  - name: nginx
+    namespace: ingress-nginx
+    createNamespace: true
+    chart: ingress-nginx/ingress-nginx
+    version: 3.26.0
+    values:
+      - rbac.create: true
+      - controller.replicaCount: 3
+  - name: rabbitmq
+    namespace: rabbitmq
+    createNamespace: true
+    chart: bitnami/rabbitmq
+    version: 8.11.6
+    values:
+      - replicaCount: 3
+  - name: dapr
+    namespace: dapr-system
+    createNamespace: true
+    chart: dapr/dapr
+    version: 1.1.2
+    set:
+      - name: global.ha.enabled
+        value: true
+      - name: global.ha.replicaCount
+        value: 3
