@@ -19,7 +19,7 @@ variable "fingerprint" {}              # Fingerprint for the key pair being used
 variable "private_key_path" {}         # The path (including filename) of the private key stored on your computer.
 variable "private_key_password" {}     # Passphrase used for the key, if it is encrypted.
 variable "region" {}                   # An Oracle Cloud Infrastructure region.
-variable "project_compartment_ocid" {} # Comparment inside Oracle Cloud where all resources will be created.
+variable "project_compartment_ocid" {} # Compartment inside Oracle Cloud where all resources will be created.
 variable "ssh_public_key" {}           # Public SSH key for remote access to the instances in the Node Pool.
 
 variable "kubernetes_version" { default = "v1.18.10" }
