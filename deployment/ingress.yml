@@ -15,8 +15,10 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: webapp
-              servicePort: 9443
+              service:
+                name: webapp
+                port:
+                  number: 9443
   tls:
   - secretName: letsencrypt-prod
     hosts:
