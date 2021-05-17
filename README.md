@@ -22,9 +22,10 @@ It may or may not make sense :-).
 A selection of technologies currently in use or projected for future use:
 
 * Java 11
-* Java EE with JSR-371 and JMS
+* Java EE with JSR-371 (MVC)
 * RabbitMQ
 * Quarkus
+* Dapr
 
 ## License
 Code, documentation, graphics in this repository are licensed under the [Apache License, version 2.0](./LICENSE). 
