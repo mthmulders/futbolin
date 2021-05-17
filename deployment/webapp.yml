@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: fra.ocir.io/frwqejk9in9h/futbolin/futbolin-webapp
+          image: fra.ocir.io/frwqejk9in9h/futbolin/futbolin-webapp:${BUILD_NUM}
           imagePullPolicy: Always
           ports:
             - containerPort: 9443

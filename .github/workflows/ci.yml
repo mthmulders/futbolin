@@ -146,6 +146,7 @@ jobs:
       - name: Deploy application components
         run: |
           declare -a files=(
+            deployment/webapp.yml
           )
 
           for f in ${files[@]}
