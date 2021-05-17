@@ -331,6 +331,9 @@
                             <groupId>com.spotify</groupId>
                             <artifactId>dockerfile-maven-plugin</artifactId>
                             <version>1.4.13</version>
+                            <configuration>
+                                <tag>${build.number}</tag>
+                            </configuration>
                             <executions>
                                 <execution>
                                     <id>build-container</id>
@@ -340,32 +343,27 @@
                                     </goals>
                                 </execution>
                                 <execution>
-                                    <id>push-container</id>
-                                    <phase>deploy</phase>
+                                    <id>tag-version</id>
+                                    <phase>package</phase>
+                                    <configuration>
+                                        <repository>eu-frankfurt-1.ocir.io/frwqejk9in9h/futbolin/${project.artifactId}</repository>
+                                        <tag>${build.number}</tag>
+                                    </configuration>
                                     <goals>
+                                        <goal>tag</goal>
                                         <goal>push</goal>
                                     </goals>
                                 </execution>
                                 <execution>
                                     <id>tag-latest</id>
-                                    <phase>deploy</phase>
-                                    <goals>
-                                        <goal>tag</goal>
-                                    </goals>
-                                    <configuration>
-                                        <tag>latest</tag>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>update-latest</id>
-                                    <phase>deploy</phase>
-                                    <goals>
-                                        <goal>push</goal>
-                                    </goals>
+                                    <phase>package</phase>
                                     <configuration>
                                         <repository>eu-frankfurt-1.ocir.io/frwqejk9in9h/futbolin/${project.artifactId}</repository>
-                                        <tag>latest</tag>
                                     </configuration>
+                                    <goals>
+                                        <goal>tag</goal>
+                                        <goal>push</goal>
+                                    </goals>
                                 </execution>
                             </executions>
                         </plugin>
