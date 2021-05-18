@@ -9,49 +9,87 @@
     <meta charset="utf-8">
     <title>Futbolín / ${title}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/font/bootstrap-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="${pageContext.request.contextPath}/css/navbar.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/sticky-footer.css" rel="stylesheet">
 </head>
 
-<body class="d-flex flex-column h-100">
-<header class="container">
-    <nav class="navbar navbar-expand-md navbar-light fixed-navbar bg-light rounded">
-        <a class="navbar-brand" href="/">Futbolín</a>
-        <div class="collapse navbar-collapse justify-content-md-center">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="/app/home">Dashboard</a></li>
+<body class="flex-column d-flex h-100 bg-light">
+
+    <div class="container">
+
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="${pageContext.request.contextPath}">
+                <span class="fs-4">Futbolín</span>
+            </a>
+
+            <ul class="nav nav-pills">
+
+                <c:if test="${pageContext.request.userPrincipal != null}">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/app/home">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
+                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#speedometer"></use>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
+                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#question-octagon"></use>
+                        </svg>
+                        Nothing Yet
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
+                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#question-octagon"></use>
+                        </svg>
+                        Nothing Yet
+                    </a>
+                </li>
+                -->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
+                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#person-circle"></use>
+                        </svg>
+                        ${pageContext.request.userPrincipal.name}
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/app/logout">Log off</a></li>
+                    </ul>
+                </li>
+                </c:if>
+
             </ul>
 
-            <c:if test="${pageContext.request.userPrincipal != null}">
-                <div class="md-0">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userDropdownMenuButton">
-                            ${pageContext.request.userPrincipal.name}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="userDropdownMenuButton">
-                            <a class="dropdown-item" href="/app/logout">Log off</a>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-        </div>
-    </nav>
-</header>
+        </header>
 
-<main role="main" class="container flex-shrink-0">
-    <jsp:doBody />
-</main>
-
-<footer class="container footer py-3 mt-auto">
-    <div class="text-muted">
-        &copy; 2019 &mdash; 2021 Maarten Mulders &mdash;
-        <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a> &mdash;
-        <a href="/app/static/privacy">Privacy Policy</a>
     </div>
-</footer>
 
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <main role="main" class="container flex-shrink-0">
+        <jsp:doBody />
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-gradient border-top">
+        <div class="container">
+            <span class="text-muted">
+                &copy; 2019 &mdash; 2021 Maarten Mulders &mdash;
+                <a href="https://github.com/mthmulders/futbolin" target="_blank">Source code</a> &mdash;
+                <a href="/app/static/privacy">Privacy Policy</a>
+            </span>
+        </div>
+    </footer>
+
+    <script src="${pageContext.request.contextPath}/webjars/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
