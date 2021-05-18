@@ -12,6 +12,9 @@ import javax.inject.Named;
 import javax.mvc.MvcContext;
 import javax.ws.rs.core.UriInfo;
 
+/**
+ * Inspired by <a href="https://github.com/eclipse-ee4j/mvc-api/issues/56">eclipse-ee4j/mvc-api #56</a>.
+ */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Named
 @NoArgsConstructor
