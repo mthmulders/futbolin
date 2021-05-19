@@ -32,7 +32,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
-                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#person-circle"></use>
+                            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.5.0/bootstrap-icons.svg#person-circle"></use>
                         </svg>
                         ${pageContext.request.userPrincipal.name}
                     </a>

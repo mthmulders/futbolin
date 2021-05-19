@@ -9,7 +9,7 @@
 <li class="nav-item">
     <a class="nav-link ${mvcHelper.applicationPath eq mvc.uri(target) ? 'active' : ''}" href="${mvc.uri(target)}">
         <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
-            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/bootstrap-icons.svg#${icon}"></use>
+            <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.5.0/bootstrap-icons.svg#${icon}"></use>
         </svg>
         ${title}
     </a>
