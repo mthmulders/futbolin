@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <title>Futbolín / ${title}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.5.0/font/bootstrap-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
