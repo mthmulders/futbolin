@@ -5,4 +5,4 @@ fingerprint              =
 private_key_path         = 
 private_key_password     = 
 region                   =
-ssh_public_key           = 
+ssh_public_key_path      =

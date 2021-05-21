@@ -94,7 +94,7 @@ jobs:
       - name: Configure kubectl
         run: |
           oci ce cluster create-kubeconfig \
-            --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafrgenlfme4tsmzsgaydgzjtmu3weyztge3tomrrgcrwmnrvmqzt \
+            --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaazhb2xq4w7czat2zimqcclitjhsl2n4jb55kx2a2jecug27loil2a \
             --file $HOME/.kube/config \
             --region eu-frankfurt-1 \
             --token-version 2.0.0
