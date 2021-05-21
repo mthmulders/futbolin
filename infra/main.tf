@@ -49,18 +49,5 @@ variable "node_shape" {
   default = "VM.Standard.E2.1"
 }
 
-output "Kubernetes-API-Server-Endpoint" {
-  value = oci_containerengine_cluster.futbolin.endpoints
-}
-
-data "oci_containerengine_cluster_kube_config" "futbolin" {
-  cluster_id = oci_containerengine_cluster.futbolin.id
-}
-
 data "oci_core_services" "futbolin" {
-}
-
-resource "local_file" "kubeconfig" {
-  content  = data.oci_containerengine_cluster_kube_config.futbolin.content
-  filename = "k8s/config"
 }
