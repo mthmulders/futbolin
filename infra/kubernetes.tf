@@ -1,5 +1,5 @@
 resource "oci_containerengine_cluster" "futbolin" {
-  compartment_id     = var.project_compartment_ocid
+  compartment_id     = oci_identity_compartment.futbolin.id
   kubernetes_version = var.kubernetes_version
   name               = "Futbolín Cluster"
   vcn_id             = oci_core_vcn.futbolin.id
@@ -18,7 +18,7 @@ resource "oci_containerengine_cluster" "futbolin" {
 
 resource "oci_containerengine_node_pool" "futbolin-pool-0" {
   cluster_id         = oci_containerengine_cluster.futbolin.id
-  compartment_id     = var.project_compartment_ocid
+  compartment_id     = oci_identity_compartment.futbolin.id
   kubernetes_version = var.kubernetes_version
   name               = "Futbolín Node Pool 0"
   ssh_public_key     = var.ssh_public_key
@@ -38,7 +38,7 @@ resource "oci_containerengine_node_pool" "futbolin-pool-0" {
 
 resource "oci_containerengine_node_pool" "futbolin-pool-1" {
   cluster_id         = oci_containerengine_cluster.futbolin.id
-  compartment_id     = var.project_compartment_ocid
+  compartment_id     = oci_identity_compartment.futbolin.id
   kubernetes_version = var.kubernetes_version
   name               = "Futbolín Node Pool 1"
   ssh_public_key     = var.ssh_public_key

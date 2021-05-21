@@ -4,6 +4,5 @@ tenancy_ocid             =
 fingerprint              = 
 private_key_path         = 
 private_key_password     = 
-region                   = 
-project_compartment_ocid =
+region                   =
 ssh_public_key           = 

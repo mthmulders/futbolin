@@ -10,21 +10,21 @@ variable "loadbalancers-cidr" { default = "10.0.20.0/24" }
 # Configure the VCN for the Kubernetes worker nodes
 resource "oci_core_vcn" "futbolin" {
   cidr_block     = "10.0.0.0/16"
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   display_name   = "Futbolín Virtual Network"
   dns_label      = "futbolin"
 }
 
 # Configure an outbound Internet Gateway
 resource "oci_core_internet_gateway" "futbolin" {
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   display_name   = "Futbolín Internet Gateway"
   vcn_id         = oci_core_vcn.futbolin.id
 }
 
 # Configure a Service Gateway for all services in our region
 resource "oci_core_service_gateway" "futbolin" {
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   display_name   = "Futbolín Service Gateway"
   vcn_id         = oci_core_vcn.futbolin.id
   services {
@@ -34,14 +34,14 @@ resource "oci_core_service_gateway" "futbolin" {
 
 # Configure a NAT Gateway 
 resource "oci_core_nat_gateway" "futbolin" {
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
   display_name   = "Futbolín NAT Gateway"
 }
 
 # Route traffic to the Internet over the Internet Gateway
 resource "oci_core_route_table" "loadbalancer-routing" {
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
   display_name   = "Load Balancers Routing Table"
   route_rules {
@@ -52,7 +52,7 @@ resource "oci_core_route_table" "loadbalancer-routing" {
 
 # Route traffic to Oracle Cloud services over the Service Gateway
 resource "oci_core_route_table" "worker-routing" {
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
   display_name   = "Workers Routing Table"
   route_rules {
@@ -65,7 +65,7 @@ resource "oci_core_route_table" "worker-routing" {
 resource "oci_core_subnet" "futbolin-worker-subnet" {
   cidr_block                 = var.workers-cidr
   display_name               = "Futbolín Worker Subnet"
-  compartment_id             = var.project_compartment_ocid
+  compartment_id             = oci_identity_compartment.futbolin.id
   vcn_id                     = oci_core_vcn.futbolin.id
   route_table_id             = oci_core_route_table.worker-routing.id
   prohibit_public_ip_on_vnic = true
@@ -78,7 +78,7 @@ resource "oci_core_subnet" "futbolin-worker-subnet" {
 resource "oci_core_subnet" "futbolin-loadbalancer-subnet" {
   cidr_block     = var.loadbalancers-cidr
   display_name   = "Futbolín Load Balancer Subnet"
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
   route_table_id = oci_core_route_table.loadbalancer-routing.id
   security_list_ids = [
@@ -89,7 +89,7 @@ resource "oci_core_subnet" "futbolin-loadbalancer-subnet" {
 # Configure a security list for the Workers subnet
 resource "oci_core_security_list" "futbolin-workers" {
   display_name   = "Security List for Worker nodes"
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
 
   # ------------- #
@@ -211,7 +211,7 @@ resource "oci_core_security_list" "futbolin-workers" {
 # Configure a security list for the Load Balancer subnet
 resource "oci_core_security_list" "futbolin-loadbalancers" {
   display_name   = "Security List for Load Balancers"
-  compartment_id = var.project_compartment_ocid
+  compartment_id = oci_identity_compartment.futbolin.id
   vcn_id         = oci_core_vcn.futbolin.id
 
   # ------------- #
