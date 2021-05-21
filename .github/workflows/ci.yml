@@ -146,6 +146,7 @@ jobs:
       - name: Deploy application components
         run: |
           declare -a files=(
+            deployment/namespaces.yml
             deployment/webapp.yml
           )
 
