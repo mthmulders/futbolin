@@ -3,8 +3,8 @@ package it.mulders.futbolin.webapp.security;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 
-class FutbolinPrincipalTest implements WithAssertions  {
-    private FutbolinPrincipal principal = FutbolinPrincipal.builder()
+class FutbolinUserTest implements WithAssertions  {
+    private DefaultFutbolinUser principal = DefaultFutbolinUser.builder()
             .displayName("Display Name")
             .email("no-reply@example.com")
             .id("8957348581491")

@@ -25,6 +25,7 @@ public class MockClaims implements Claims {
     private final String name;
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getClaim(String key, Class<T> aClass) {
         if (String.class != aClass) throw new UnsupportedOperationException();
 
@@ -84,12 +85,10 @@ public class MockClaims implements Claims {
 
     @Override
     public void putAll(Map<? extends String, ?> m) {
-
     }
 
     @Override
     public void clear() {
-
     }
 
     @Override

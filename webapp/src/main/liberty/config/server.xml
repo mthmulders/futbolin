@@ -5,6 +5,7 @@
         <feature>cdi-2.0</feature>
         <feature>jaxrs-2.1</feature>
         <feature>jsp-2.3</feature>
+        <feature>servlet-4.0</feature>
 
         <feature>appSecurity-3.0</feature>
         <feature>socialLogin-1.0</feature>
@@ -60,7 +61,7 @@
 
     <webApplication location="${application.name}-webapp.war" name="${application.name}" contextRoot="/">
         <application-bnd>
-            <security-role name="user">
+            <security-role name="futbolin-user">
                 <special-subject type="ALL_AUTHENTICATED_USERS" />
             </security-role>
         </application-bnd>

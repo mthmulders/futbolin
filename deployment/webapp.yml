@@ -43,10 +43,19 @@ spec:
                   key: oidc.keystore.password
             - name: OIDC_RPHOSTANDPORT
               value: https://futbolin.mulders.it/
+            - name: CONFIGURATION_FILE
+              value: /etc/webapp-config/application.properties
+          volumeMounts:
+            - name: webapp-config
+              mountPath: "/etc/webapp-config"
+              readOnly: true
       volumes:
       - name: client-keystore
         secret:
           secretName: webapp-oidc
+      - name: webapp-config
+        secret:
+          secretName: webapp-config
       restartPolicy: Always
 
 ---

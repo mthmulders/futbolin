@@ -74,6 +74,23 @@
                     <serverXmlFile>src/main/liberty/server.xml</serverXmlFile>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <environmentVariables>
+                        <CONFIGURATION_FILE>src/test/resources/application.properties</CONFIGURATION_FILE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -106,6 +123,11 @@
             <version>${krazo.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.7.1</version>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
@@ -123,6 +145,10 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-icons</artifactId>
             <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.mulders.futbolin</groupId>
+            <artifactId>futbolin-messages</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ibm.websphere.appserver.api</groupId>
@@ -155,6 +181,11 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.mulders.futbolin</groupId>
+            <artifactId>futbolin-messages</artifactId>
+            <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>com.mockrunner</groupId>

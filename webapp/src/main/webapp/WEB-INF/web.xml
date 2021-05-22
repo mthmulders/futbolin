@@ -5,7 +5,7 @@
          version="4.0">
 
     <security-role>
-        <role-name>user</role-name>
+        <role-name>futbolin-user</role-name>
     </security-role>
 
     <!-- Require authenticated users under /app -->
@@ -15,7 +15,7 @@
             <url-pattern>/app/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>user</role-name>
+            <role-name>futbolin-user</role-name>
         </auth-constraint>
     </security-constraint>
 

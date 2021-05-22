@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="nop" class="ch.qos.logback.core.helpers.NOPAppender" />
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date  %-5level  %50.50logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="it.mulders.futbolin" level="debug">
+        <appender-ref ref="nop" />
+    </logger>
 
     <root level="error">
         <appender-ref ref="nop" />

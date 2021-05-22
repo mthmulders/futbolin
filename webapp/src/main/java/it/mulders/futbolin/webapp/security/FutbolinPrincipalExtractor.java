@@ -1,8 +1,8 @@
 package it.mulders.futbolin.webapp.security;
 
 /**
- * Strategy for extracting a {@link FutbolinPrincipal}.
+ * Strategy for extracting a {@link FutbolinUser}.
  */
 public interface FutbolinPrincipalExtractor {
-    FutbolinPrincipal extractFutbolinPrincipal();
+    FutbolinUser extractFutbolinPrincipal();
 }

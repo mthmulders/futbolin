@@ -16,13 +16,22 @@
         <quarkus.version>1.13.4.Final</quarkus.version>
     </properties>
 
+    <modules>
+        <module>user-service</module>
+    </modules>
+
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
                     <configuration>
                         <systemProperties>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>

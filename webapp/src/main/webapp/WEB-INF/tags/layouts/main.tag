@@ -49,7 +49,7 @@
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="currentColor">
                             <use xlink:href="${pageContext.request.contextPath}/webjars/bootstrap-icons/1.5.0/bootstrap-icons.svg#person-circle"></use>
                         </svg>
-                        ${pageContext.request.userPrincipal.name}
+                        ${pageContext.request.userPrincipal.displayName}
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="user-dropdown">

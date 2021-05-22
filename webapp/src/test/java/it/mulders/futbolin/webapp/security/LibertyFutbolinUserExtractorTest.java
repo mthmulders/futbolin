@@ -7,7 +7,7 @@ import javax.security.auth.Subject;
 
 import static java.util.Optional.of;
 
-class LibertyFutbolinPrincipalExtractorTest implements WithAssertions {
+class LibertyFutbolinUserExtractorTest implements WithAssertions {
     private LibertyFutbolinPrincipalExtractor extractor;
 
     void setup(final String displayName, final String subject) {

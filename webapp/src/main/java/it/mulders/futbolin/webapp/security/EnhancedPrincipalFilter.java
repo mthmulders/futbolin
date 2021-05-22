@@ -16,12 +16,20 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * When the request comes from an authenticated user, this filter replaces the default {@link Principal}
+ * on that request with an instance of {@link FutbolinUser}.
+ *
+ * Computing the  {@link FutbolinUser} instance involves a few calls to a proprietary OpenLiberty API. Since
+ * their performance impact is unknown, the result of those calls is cached in {@link #userCache}.
+ */
 @Slf4j
 @WebFilter(urlPatterns = "/app/*")
 public class EnhancedPrincipalFilter extends HttpFilter {
-    private final transient Map<Principal, FutbolinPrincipal> userCache = new HashMap<>();
+    private final transient Map<Principal, FutbolinUser> userCache = new HashMap<>();
 
-    @Inject FutbolinPrincipalExtractor extractor;
+    @Inject
+    FutbolinPrincipalExtractor extractor;
 
     @Override
     public void init(final FilterConfig filterConfig) {
@@ -38,15 +46,9 @@ public class EnhancedPrincipalFilter extends HttpFilter {
             log.debug("Request does not have user principal, continuing");
             chain.doFilter(request, response);
             return;
-        } else if (originalPrincipal instanceof FutbolinPrincipal) {
-            log.debug("Request user principal is already of expected type, continuing");
-            chain.doFilter(request, response);
-            return;
         }
 
-        userCache.computeIfAbsent(originalPrincipal, this::createFutbolinPrincipal);
-
-        var replacedPrincipal = userCache.get(originalPrincipal);
+        var replacedPrincipal = userCache.computeIfAbsent(originalPrincipal, this::createFutbolinPrincipal);
 
         var wrappedRequest = new HttpServletRequestWrapper(request) {
             @Override
@@ -58,7 +60,7 @@ public class EnhancedPrincipalFilter extends HttpFilter {
         chain.doFilter(wrappedRequest, response);
     }
 
-    private FutbolinPrincipal createFutbolinPrincipal(final Principal originalPrincipal) {
+    private FutbolinUser createFutbolinPrincipal(final Principal originalPrincipal) {
         return extractor.extractFutbolinPrincipal();
     }
 
