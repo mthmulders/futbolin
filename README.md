@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/mthmulders/futbolin.svg?style=svg)](https://circleci.com/gh/mthmulders/futbolin)
+[![CI build](https://github.com/mthmulders/futbolin/actions/workflows/ci.yml/badge.svg)](https://github.com/mthmulders/futbolin/actions/workflows/ci.yml)
 [![SonarCloud quality gate](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=alert_status)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
 [![SonarCloud vulnerability count](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
 [![SonarCloud technical debt](https://sonarcloud.io/api/project_badges/measure?project=mthmulders_futbolin&metric=sqale_index)](https://sonarcloud.io/dashboard?id=mthmulders_futbolin)
@@ -12,7 +12,10 @@ Because one of the inventors of table football was a Spaniard, [Alejandro Finist
 
 ## Documentation
 The [docs](docs/) folder contains some documentation on architecture and selected technology.
+
 The [deployment](deployment/) folder contains deployment instructions.
+
+The [local](local/) folder contains some useful scripts to ease local development, such as a **docker-compose.yml** that spins up the required infrastructure components.
 
 ## Technology
 Selected technology for this project may feel a bit like a hodgepodge.
