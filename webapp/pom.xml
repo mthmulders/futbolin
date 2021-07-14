@@ -13,7 +13,7 @@
     <name>Futbolín :: Web App</name>
 
     <properties>
-        <krazo.version>1.1.0</krazo.version>
+        <krazo.version>2.0.1</krazo.version>
 
         <testcontainers.version>1.15.3</testcontainers.version>
 
