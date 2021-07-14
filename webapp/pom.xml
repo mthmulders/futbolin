@@ -133,7 +133,7 @@
         <dependency>
             <groupId>com.ibm.websphere.appserver.api</groupId>
             <artifactId>com.ibm.websphere.appserver.api.social</artifactId>
-            <version>1.0.53</version>
+            <version>1.0.54</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
